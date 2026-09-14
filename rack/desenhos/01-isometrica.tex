@@ -1,0 +1,144 @@
+% ============================================================
+%  MR2020-01  Isometric view
+%  A4 portrait, isometric drawing at 1:5 on all three axes
+%  Included by mr2020.tex; does not compile on its own.
+% ============================================================
+
+% isometric dimension: \cotaIso{x1}{y1}{x2}{y2}{dx}{dy}{text rotation}{text}
+% points in sheet mm; (dx,dy) offsets the dimension line from the edge along an iso axis
+\newcommand{\cotaIso}[8]{%
+  \draw[linhaB] ({#1+0.15*(#5)},{#2+0.15*(#6)}) -- ({#1+1.2*(#5)},{#2+1.2*(#6)});
+  \draw[linhaB] ({#3+0.15*(#5)},{#4+0.15*(#6)}) -- ({#3+1.2*(#5)},{#4+1.2*(#6)});
+  \draw[setaDupla] ({#1+(#5)},{#2+(#6)}) -- ({#3+(#5)},{#4+(#6)});
+  \node[txtcota, below, rotate=#7] at ({(#1+#3)/2+(#5)},{(#2+#4)/2+(#6)}) {#8};}
+
+% visible faces of a box for a viewer at -X, -Y, +Z (X width, Y depth from the front, Z height):
+% \faces[fill]{x1}{x2}{y1}{y2}{z1}{z2}, fill defaults to white
+\newcommand{\faces}[7][white]{%
+  \filldraw[linhaA, fill=#1] ({#2},{#4},{#6}) -- ({#2},{#5},{#6}) -- ({#2},{#5},{#7}) -- ({#2},{#4},{#7}) -- cycle;
+  \filldraw[linhaA, fill=#1] ({#2},{#4},{#6}) -- ({#3},{#4},{#6}) -- ({#3},{#4},{#7}) -- ({#2},{#4},{#7}) -- cycle;
+  \filldraw[linhaA, fill=#1] ({#2},{#4},{#7}) -- ({#3},{#4},{#7}) -- ({#3},{#5},{#7}) -- ({#2},{#5},{#7}) -- cycle;}
+
+% upright: profile 5..584 with slots at 7..13 mm, connectors at 0..5 and 584..589: \upS{x1}{x2}{y1}{y2}
+\newcommand{\upS}[4]{%
+  \faces{#1}{#2}{#3}{#4}{0}{589}
+  \fill[canal] ({#1},{#3+7},5) -- ({#1},{#3+13},5) -- ({#1},{#3+13},584) -- ({#1},{#3+7},584) -- cycle;
+  \fill[canal] ({#1+7},{#3},5) -- ({#1+13},{#3},5) -- ({#1+13},{#3},584) -- ({#1+7},{#3},584) -- cycle;
+  \foreach \o in {7,13}{
+    \draw[linhaB] ({#1},{#3+\o},5) -- ({#1},{#3+\o},584);
+    \draw[linhaB] ({#1+\o},{#3},5) -- ({#1+\o},{#3},584);}
+  % top connector: left, front and top faces
+  \faces[conector]{#1}{#2}{#3}{#4}{584}{589}
+  % bottom connector: left and front strips only (its top face is hidden inside the upright)
+  \filldraw[linhaA, fill=conector] ({#1},{#3},0) -- ({#1},{#4},0) -- ({#1},{#4},5) -- ({#1},{#3},5) -- cycle;
+  \filldraw[linhaA, fill=conector] ({#1},{#3},0) -- ({#2},{#3},0) -- ({#2},{#3},5) -- ({#1},{#3},5) -- cycle;}
+% width rail, long along X: slots on the front and top faces: \wrS{x1}{x2}{y1}{y2}{z1}{z2}
+\newcommand{\wrS}[6]{%
+  \faces{#1}{#2}{#3}{#4}{#5}{#6}
+  \fill[canal] ({#1},{#3},{#5+7}) -- ({#2},{#3},{#5+7}) -- ({#2},{#3},{#5+13}) -- ({#1},{#3},{#5+13}) -- cycle;
+  \fill[canal] ({#1},{#3+7},{#6}) -- ({#2},{#3+7},{#6}) -- ({#2},{#3+13},{#6}) -- ({#1},{#3+13},{#6}) -- cycle;
+  \foreach \o in {7,13}{
+    \draw[linhaB] ({#1},{#3},{#5+\o}) -- ({#2},{#3},{#5+\o});
+    \draw[linhaB] ({#1},{#3+\o},{#6}) -- ({#2},{#3+\o},{#6});}}
+% depth rail, long along Y: slots on the left and top faces: \drS{x1}{x2}{y1}{y2}{z1}{z2}
+\newcommand{\drS}[6]{%
+  \faces{#1}{#2}{#3}{#4}{#5}{#6}
+  \fill[canal] ({#1},{#3},{#5+7}) -- ({#1},{#4},{#5+7}) -- ({#1},{#4},{#5+13}) -- ({#1},{#3},{#5+13}) -- cycle;
+  \fill[canal] ({#1+7},{#3},{#6}) -- ({#1+13},{#3},{#6}) -- ({#1+13},{#4},{#6}) -- ({#1+7},{#4},{#6}) -- cycle;
+  \foreach \o in {7,13}{
+    \draw[linhaB] ({#1},{#3},{#5+\o}) -- ({#1},{#4},{#5+\o});
+    \draw[linhaB] ({#1+\o},{#3},{#6}) -- ({#1+\o},{#4},{#6});}}
+
+\begin{folha}
+
+% title block shows the projection method as text on this sheet
+\def\projecao{\node[anchor=base west, font=\fontsize{3mm}{3.4mm}\selectfont\bfseries] at (126.5,19.5) {ISOMETRIC};}
+
+% axis heights of the intermediate rails, measured from the frame base
+\pgfmathsetmacro{\EA}{\RackA-\TravIntAEstr}   % 427.85
+\pgfmathsetmacro{\EB}{\RackA-\TravIntBEstr}   % 250.05
+
+\node[txtvista, anchor=west] at (24,280) {ISOMETRIC VIEW \quad 1:5};
+
+% ============================================================
+%  FRAME, painted from the farthest part to the nearest
+%  sheet origin of the front left bottom corner: (110, 95)
+%  X -> ( 0.866, 0.5) x 0.2    Y -> (-0.866, 0.5) x 0.2    Z -> (0, 1) x 0.2
+% ============================================================
+\begin{scope}[shift={(110,95)},
+    x={(0.17320508mm,0.1mm)}, y={(-0.17320508mm,0.1mm)}, z={(0mm,0.2mm)}]
+  \upS{186}{206}{330}{350}                        % back right upright
+  \drS{186}{206}{20}{330}{0}{20}                  % right depth rails, bottom to top
+  \drS{186}{206}{20}{330}{\EB-10}{\EB+10}
+  \drS{186}{206}{20}{330}{\EA-10}{\EA+10}
+  \drS{186}{206}{20}{330}{569}{589}
+  \wrS{20}{186}{330}{350}{0}{20}                  % back width rails, bottom to top
+  \wrS{20}{186}{330}{350}{\EB-10}{\EB+10}
+  \wrS{20}{186}{330}{350}{\EA-10}{\EA+10}
+  \wrS{20}{186}{330}{350}{569}{589}
+  \upS{0}{20}{330}{350}                           % back left upright
+  \drS{0}{20}{20}{330}{0}{20}                     % left depth rails, bottom to top
+  \drS{0}{20}{20}{330}{\EB-10}{\EB+10}
+  \drS{0}{20}{20}{330}{\EA-10}{\EA+10}
+  \drS{0}{20}{20}{330}{569}{589}
+  \upS{186}{206}{0}{20}                           % front right upright
+  \wrS{20}{186}{0}{20}{0}{20}                     % front width rails
+  \wrS{20}{186}{0}{20}{569}{589}
+  \upS{0}{20}{0}{20}                              % front left upright
+\end{scope}
+
+% ============================================================
+%  OVERALL DIMENSIONS
+%  corners on the sheet: O (110,95)  A width (145.68,115.6)
+%                        B depth (49.38,130)  C height (145.68,233.4)
+% ============================================================
+\cotaIso{110}{95}{145.68}{115.6}{6.93}{-4}{30}{206}
+\cotaIso{110}{95}{49.38}{130}{-6.93}{-4}{-30}{350}
+\cotaIso{145.68}{115.6}{145.68}{233.4}{6.93}{-4}{90}{589}
+
+% front direction (-Y)
+\draw[linhaB, -{Triangle[length=2.4mm,width=0.85mm]}] (162,96) -- (172.4,90);
+\node[txtnota, font=\fontsize{2.1mm}{2.5mm}\selectfont\bfseries, anchor=west] at (173.5,89.4) {FRONT};
+
+% ============================================================
+%  ITEM BALLOONS (same numbers as sheets 02 to 04)
+% ============================================================
+\balao{1}{34}{232}{51.1}{219}      % back left upright
+\balao{2}{128}{262}{125.6}{223.8}  % front top width rail
+\balao{3}{34}{168}{58}{175}        % left intermediate depth rail
+\balao{4}{168}{246}{142.2}{233.4}  % top corner connector
+
+% ============================================================
+%  SHEET INDEX
+% ============================================================
+\begin{scope}[shift={(150,253.2)}]
+  \draw[line width=0.35mm] (0,0) rectangle (48,28.8);
+  \draw[linhaA] (0,24) -- (48,24);
+  \foreach \y in {4.8,9.6,14.4,19.2}{\draw[linhaB] (0,\y) -- (48,\y);}
+  \draw[linhaB] (11,0) -- (11,28.8);
+  \def\cab{\fontsize{1.8mm}{2.1mm}\selectfont\bfseries}
+  \def\cel{\fontsize{2mm}{2.4mm}\selectfont}
+  \node[font=\cab] at (5.5,26.4) {SHEET};
+  \node[font=\cab, anchor=west] at (12.5,26.4) {TITLE};
+  \node[font=\cel] at (5.5,21.6) {01};  \node[font=\cel, anchor=west] at (12.5,21.6) {Isometric view};
+  \node[font=\cel] at (5.5,16.8) {02};  \node[font=\cel, anchor=west] at (12.5,16.8) {Frame assembly};
+  \node[font=\cel] at (5.5,12)   {03};  \node[font=\cel, anchor=west] at (12.5,12)   {Parts and cut list};
+  \node[font=\cel] at (5.5,7.2)  {04};  \node[font=\cel, anchor=west] at (12.5,7.2)  {Corner details};
+  \node[font=\cel] at (5.5,2.4)  {05};  \node[font=\cel, anchor=west] at (12.5,2.4)  {Rack unit layout};
+\end{scope}
+
+% ============================================================
+%  NOTES
+% ============================================================
+\node[anchor=north west, txtnota, text width=174mm, align=left, inner sep=0pt] at (24,84) {%
+  \hyphenpenalty=10000\exhyphenpenalty=10000
+  {\fontsize{2.6mm}{3mm}\selectfont\bfseries NOTES}\\[1.4mm]
+  1. All dimensions are in mm; keep in mind that 1U~=~1.75~in~=~44.45~mm.\\[1mm]
+  2. Isometric drawing at 1:5 on all three axes. Hidden edges are omitted. Slots shaded in light grey, corner connectors in dark grey.\\[1mm]
+  3. The overall height of 589 includes the 5~mm corner connectors at the top and bottom vertices; uprights are cut to 579.\\[1mm]
+  4. Item numbers match sheets 02 to 04. Orthographic views on sheet~02, cut lengths on sheet~03, corner details on sheet~04, rack unit layout on sheet~05.\\[1mm]
+  5. Intermediate depth rails and back width rails at the U3/U4 and U7/U8 boundaries.};
+
+\legenda{ISOMETRIC VIEW}{Frame overview, 8 in. × 12U format}{MR2020-01}{1:5}{1}{5}
+
+\end{folha}

@@ -1,0 +1,153 @@
+% ============================================================
+%  iso.sty  Technical drawing per ISO standards, A4 portrait sheet
+%  ISO 5457 (sheet)   ISO 7200 (title block)   ISO 128-24 (lines)
+%  ISO 129-1 (dimensioning)   ISO 5455 (scales)   ISO 5456-2 (first angle)
+% ============================================================
+\ProvidesPackage{iso}
+\RequirePackage{tikz}
+\RequirePackage[scaled=0.92]{helvet}
+\RequirePackage{anyfontsize}
+\usetikzlibrary{arrows.meta,calc,patterns}
+\renewcommand{\familydefault}{\sfdefault}
+
+% ---------- ISO 128-24: line group 0.35 (suited to A4) ----------
+\tikzset{
+  % continuous wide: visible edges and outlines
+  linhaA/.style   = {line width=0.35mm, line cap=round, line join=round},
+  % continuous narrow: dimension, extension and leader lines, breaks
+  linhaB/.style   = {line width=0.18mm},
+  % dashed narrow: hidden edges
+  linhaF/.style   = {line width=0.18mm, dash pattern=on 2.4mm off 0.9mm},
+  % long-dashed dotted narrow: axes and center lines
+  linhaG/.style   = {line width=0.18mm, dash pattern=on 7mm off 1mm on 0.8mm off 1mm},
+  % long-dashed double-dotted narrow: outline of adjacent parts
+  linhaK/.style   = {line width=0.18mm, dash pattern=on 5mm off 0.8mm on 0.6mm off 0.8mm on 0.6mm off 0.8mm},
+  setaDupla/.style= {{Triangle[length=2.4mm,width=0.85mm]}-{Triangle[length=2.4mm,width=0.85mm]}, linhaB},
+  % lettering: ISO 3098, 2.5 mm minimum height for dimensions on A4
+  txtcota/.style  = {font=\fontsize{2.5mm}{3mm}\selectfont, inner sep=0.5mm},
+  txtvista/.style = {font=\fontsize{3mm}{3.6mm}\selectfont\bfseries},
+  txtnota/.style  = {font=\fontsize{2.1mm}{2.7mm}\selectfont},
+  txtrot/.style   = {font=\fontsize{1.6mm}{2mm}\selectfont, text=black!65},
+}
+
+% ---------- ISO 129-1: dimensions in sheet coordinates ----------
+% \cotaHor{x1}{x2}{y of dimension line}{ref. y at x1}{ref. y at x2}{text}
+\newcommand{\cotaHor}[6]{%
+  \draw[linhaB, shorten <=1mm, shorten >=-1.5mm] ({#1},{#4}) -- ({#1},{#3});
+  \draw[linhaB, shorten <=1mm, shorten >=-1.5mm] ({#2},{#5}) -- ({#2},{#3});
+  \draw[setaDupla] ({#1},{#3}) -- ({#2},{#3});
+  \node[txtcota, above] at ({(#1+#2)/2},{#3}) {#6};
+}
+% \cotaVer{y1}{y2}{x of dimension line}{ref. x at y1}{ref. x at y2}{text}
+\newcommand{\cotaVer}[6]{%
+  \draw[linhaB, shorten <=1mm, shorten >=-1.5mm] ({#4},{#1}) -- ({#3},{#1});
+  \draw[linhaB, shorten <=1mm, shorten >=-1.5mm] ({#5},{#2}) -- ({#3},{#2});
+  \draw[setaDupla] ({#3},{#1}) -- ({#3},{#2});
+  \node[txtcota, above, rotate=90] at ({#3},{(#1+#2)/2}) {#6};
+}
+
+% ---------- item balloon: \balao{no.}{balloon x}{balloon y}{part x}{part y} ----------
+\newcommand{\balao}[5]{%
+  \fill ({#4},{#5}) circle (0.35mm);
+  \draw[linhaB, shorten >=3mm] ({#4},{#5}) -- ({#2},{#3});
+  \draw[linhaB, fill=white] ({#2},{#3}) circle (3mm);
+  \node[font=\fontsize{2.8mm}{3.2mm}\selectfont\bfseries] at ({#2},{#3}) {#1};
+}
+
+% ---------- colours for the detailed isometric views ----------
+\colorlet{canal}{gray!40}      % slot interior
+\colorlet{conector}{gray!65}   % 3-way corner connectors
+
+% ---------- leader with a dot on the surface: \chamada{px}{py}{tx}{ty}{anchor}{text} ----------
+\newcommand{\chamada}[6]{%
+  \fill ({#1},{#2}) circle (0.35mm);
+  \draw[linhaB] ({#1},{#2}) -- ({#3},{#4});
+  \node[txtnota, font=\fontsize{2.2mm}{2.6mm}\selectfont\bfseries, anchor=#5] at ({#3},{#4}) {#6};
+}
+
+% ---------- zigzag break lines ----------
+% \quebraH{x1}{x2}{y}      \quebraV{x}{y1}{y2}
+\newcommand{\quebraH}[3]{%
+  \draw[linhaB] ({#1-1.5},{#3}) -- ({(#1+#2)/2-1.2},{#3}) -- ({(#1+#2)/2-0.4},{#3+1.6})
+    -- ({(#1+#2)/2+0.4},{#3-1.6}) -- ({(#1+#2)/2+1.2},{#3}) -- ({#2+1.5},{#3});
+}
+\newcommand{\quebraV}[3]{%
+  \draw[linhaB] ({#1},{#2-1.5}) -- ({#1},{(#2+#3)/2-1.2}) -- ({#1+1.6},{(#2+#3)/2-0.4})
+    -- ({#1-1.6},{(#2+#3)/2+0.4}) -- ({#1},{(#2+#3)/2+1.2}) -- ({#1},{#3+1.5});
+}
+
+% ---------- ISO 5457: A4 portrait, 20 mm filing margin ----------
+% drawing frame: (20,10) to (200,287)
+\newcommand{\moldura}{%
+  \path (0,0) rectangle (210,297);
+  \draw[line width=0.5mm] (20,10) rectangle (200,287);
+  \draw[linhaA] (110,10) -- (110,5);
+  \draw[linhaA] (110,287) -- (110,292);
+  \draw[linhaA] (20,148.5) -- (15,148.5);
+  \draw[linhaA] (200,148.5) -- (205,148.5);
+}
+
+% ---------- ISO 5456-2: first angle projection symbol ----------
+% end view on the left, truncated cone on the right with its large end next to the circles
+\newcommand{\diedro}[2]{%
+  \begin{scope}[shift={(#1,#2)}]
+    \draw[linhaB, dash pattern=on 2mm off 0.5mm on 0.4mm off 0.5mm] (-2.9,0) -- (11.4,0);
+    \draw[linhaB, dash pattern=on 2mm off 0.5mm on 0.4mm off 0.5mm] (0,-2.9) -- (0,2.9);
+    \draw[linhaA] (0,0) circle (2.1mm);
+    \draw[linhaA] (0,0) circle (1.05mm);
+    \draw[linhaA] (4.9,2.1) -- (4.9,-2.1) -- (10.5,-1.05) -- (10.5,1.05) -- cycle;
+  \end{scope}
+}
+
+% ---------- ISO 7200: 180 x 35 title block at the bottom of the frame ----------
+% \legenda{title}{subtitle}{drawing no.}{scale}{sheet}{total sheets}
+\newcommand{\legenda}[6]{%
+  \begin{scope}[shift={(20,10)}]
+    \draw[line width=0.5mm] (0,0) rectangle (180,35);
+    \draw[linhaB] (0,8) -- (180,8);
+    \draw[linhaB] (0,17) -- (180,17);
+    \draw[linhaB] (0,27) -- (180,27);
+    \draw[linhaB] (125,8) -- (125,27);
+    \draw[linhaB] (160,17) -- (160,27);
+    \foreach \x in {50,85,115,155}{\draw[linhaB] (\x,0) -- (\x,8);}
+
+    \node[txtrot, anchor=base west] at (1.5,32.6) {OWNER};
+    \node[anchor=base west, font=\fontsize{2.8mm}{3.2mm}\selectfont\bfseries] at (1.5,28.4) {LUIDLAB · MINIRACK PROJECT · 8 U. · 20 × 20 ALUMINUM EXTRUSION};
+
+    \node[txtrot, anchor=base west] at (1.5,24.9) {TITLE};
+    \node[anchor=base west, font=\fontsize{3.6mm}{4mm}\selectfont\bfseries] at (1.5,20.6) {#1};
+    \node[anchor=base west, font=\fontsize{2mm}{2.4mm}\selectfont] at (1.5,17.8) {#2};
+
+    \node[txtrot, anchor=base west] at (126.5,24.9) {PROJECTION};
+    % a sheet may \def\projecao before \legenda (e.g. isometric); default is the first angle symbol
+    \providecommand{\projecao}{\diedro{131.5}{20.3}}\projecao
+    \node[txtrot, anchor=base west] at (161.5,24.9) {UNIT};
+    \node[anchor=base west, font=\fontsize{3.2mm}{3.6mm}\selectfont\bfseries] at (161.5,19.5) {mm};
+
+    \node[txtrot, anchor=base west] at (1.5,14.9) {MATERIAL};
+    \node[anchor=base west, font=\fontsize{2.4mm}{2.8mm}\selectfont] at (1.5,10.4) {Aluminum profile 6063-T5, 20 series (20 × 20), 6 mm slot};
+    \node[txtrot, anchor=base west] at (126.5,14.9) {STANDARDS};
+    \node[anchor=base west, font=\fontsize{2.1mm}{2.5mm}\selectfont] at (126.5,10.4) {ISO 5457 · 7200 · 128 · 129-1};
+
+    \node[txtrot, anchor=base west] at (1.5,5.6) {DRAWING NO.};
+    \node[anchor=base west, font=\fontsize{3mm}{3.4mm}\selectfont\bfseries] at (1.5,1.5) {#3};
+    \node[txtrot, anchor=base west] at (51.5,5.6) {SCALE};
+    \node[anchor=base west, font=\fontsize{3mm}{3.4mm}\selectfont\bfseries] at (51.5,1.5) {#4};
+    \node[txtrot, anchor=base west] at (86.5,5.6) {SHEET};
+    \node[anchor=base west, font=\fontsize{3mm}{3.4mm}\selectfont\bfseries] at (86.5,1.5) {#5 / #6};
+    \node[txtrot, anchor=base west] at (116.5,5.6) {DATE};
+    \node[anchor=base west, font=\fontsize{2.6mm}{3mm}\selectfont] at (116.5,1.5) {2026-09-13};
+    \node[txtrot, anchor=base west] at (156.5,5.6) {REV.};
+    \node[anchor=base west, font=\fontsize{3mm}{3.4mm}\selectfont\bfseries] at (156.5,1.5) {A};
+  \end{scope}
+}
+
+% ---------- sheet: origin at the page's lower left corner (compile twice) ----------
+\newenvironment{folha}{%
+  \null\begin{tikzpicture}[remember picture, overlay, x=1mm, y=1mm,
+      shift={(current page.south west)}]
+  \moldura
+}{%
+  \end{tikzpicture}\newpage
+}
+\endinput

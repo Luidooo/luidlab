@@ -1,0 +1,136 @@
+% ============================================================
+%  MR2020-03  Parts and cut list
+%  A4 portrait, scale 1:2 (parts) and 2:1 (profile section)
+% ============================================================
+%  Included by mr2020.tex; does not compile on its own.
+
+% plain bar at 1:2, 10 mm tall on paper: \barra{x1}{x2}{y}
+\newcommand{\barra}[3]{%
+  \draw[linhaA] ({#1},{#3}) -- ({#2},{#3});
+  \draw[linhaA] ({#1},{#3+10}) -- ({#2},{#3+10});}
+% square bar end: \ponta{x}{y}
+\newcommand{\ponta}[2]{\draw[linhaA] ({#1},{#2}) -- ({#1},{#2+10});}
+% part heading: \titulo{y}{text}{scale}{x of scale}
+\newcommand{\titulo}[4]{%
+  \node[txtvista, anchor=west] at (24,#1) {#2};
+  \node[txtvista, anchor=east] at (#4,#1) {#3};}
+
+\begin{folha}
+
+% ============================================================
+%  ITEM 1  UPRIGHT, 1:2, interrupted view
+% ============================================================
+% Real positions are measured from the BOTTOM END of the cut upright.
+% Paper x = 31 + f(real), with two breaks in the plain stretches:
+%   real   0.00 ..  25.00  ->  paper  31.0 ..  43.5
+%   real 210.05 .. 457.85  ->  paper  47.5 .. 171.4
+%   real 554.00 .. 579.00  ->  paper 175.4 .. 187.9
+% Lower faces of the rails: 235.05 -> 60.0 ; 412.85 -> 148.9
+\titulo{280}{ITEM 1 \quad UPRIGHT \quad QTY 4}{1:2}{198}
+
+\barra{31}{43.5}{250}   \barra{47.5}{171.4}{250}   \barra{175.4}{187.9}{250}
+\ponta{31}{250}         \ponta{187.9}{250}
+\quebraV{43.5}{250}{260}  \quebraV{47.5}{250}{260}
+\quebraV{171.4}{250}{260} \quebraV{175.4}{250}{260}
+
+% adjacent rails (depth rails, plus back width rails on the back uprights), phantom outline
+\draw[linhaK] (60,260) -- (60,268) -- (70,268) -- (70,260);
+\draw[linhaK] (148.9,260) -- (148.9,268) -- (158.9,268) -- (158.9,260);
+\node[txtrot] at (65,270.6) {RAILS};
+\node[txtrot] at (153.9,270.6) {RAILS};
+\node[txtrot, anchor=west] at (31,262.6) {BOTTOM END};
+\node[txtrot, anchor=east] at (187.9,262.6) {TOP END};
+
+% dimensions from the bottom end to the lower face of each rail
+\cotaHor{31}{60}{242}{250}{250}{235.05}
+\cotaHor{31}{148.9}{236}{250}{250}{412.85}
+\cotaHor{31}{187.9}{230}{250}{250}{579}
+
+% ============================================================
+%  ITEM 3  DEPTH RAIL, 1:2
+% ============================================================
+\titulo{224}{ITEM 3 \quad DEPTH RAIL \quad QTY 8}{1:2}{198}
+\barra{31}{186}{206}
+\ponta{31}{206} \ponta{186}{206}
+\cotaHor{31}{186}{198}{206}{206}{310}
+
+% ============================================================
+%  ITEM 2  WIDTH RAIL, 1:2
+% ============================================================
+\titulo{178}{ITEM 2 \quad WIDTH RAIL \quad QTY 6}{1:2}{118}
+\barra{31}{114}{160}
+\ponta{31}{160} \ponta{114}{160}
+\cotaHor{31}{114}{152}{160}{160}{166}
+
+% ============================================================
+%  PROFILE SECTION, 2:1 (schematic, per supplier catalog)
+% ============================================================
+\node[txtvista] at (160,192) {PROFILE SECTION};
+\node[txtvista, anchor=east] at (198,192) {2:1};
+\def\perfil{(-10,-10) -- (-3,-10) -- (-3,-8) -- (-5,-8) -- (-5,-5.5) -- (5,-5.5) -- (5,-8)
+  -- (3,-8) -- (3,-10) -- (10,-10) -- (10,-3) -- (8,-3) -- (8,-5) -- (5.5,-5) -- (5.5,5)
+  -- (8,5) -- (8,3) -- (10,3) -- (10,10) -- (3,10) -- (3,8) -- (5,8) -- (5,5.5) -- (-5,5.5)
+  -- (-5,8) -- (-3,8) -- (-3,10) -- (-10,10) -- (-10,3) -- (-8,3) -- (-8,5) -- (-5.5,5)
+  -- (-5.5,-5) -- (-8,-5) -- (-8,-3) -- (-10,-3) -- cycle}
+\begin{scope}[shift={(160,160)}, scale=2]
+  \path[pattern=north east lines, even odd rule] \perfil (0,0) circle (2.1);
+  \draw[linhaA] \perfil;
+  \draw[linhaA] (0,0) circle (2.1);
+  \draw[linhaG] (-12,0) -- (12,0);
+  \draw[linhaG] (0,-12) -- (0,12);
+\end{scope}
+\cotaHor{140}{180}{133}{140}{140}{20}
+\cotaVer{140}{180}{133}{140}{140}{20}
+\cotaHor{154}{166}{185}{180}{180}{6}
+
+% ============================================================
+%  CUT LIST
+% ============================================================
+\node[txtvista, anchor=west] at (25,128.5) {CUT LIST};
+\begin{scope}[shift={(25,94)}]
+  \draw[line width=0.35mm] (0,0) rectangle (170,30);
+  \draw[linhaA] (0,24) -- (170,24);
+  \draw[linhaA] (0,6) -- (170,6);
+  \foreach \y in {12,18}{\draw[linhaB] (0,\y) -- (170,\y);}
+  \foreach \x in {15,100,120,145}{\draw[linhaB] (\x,6) -- (\x,30);}
+  \draw[linhaB] (145,0) -- (145,6);
+  \def\cab{\fontsize{2mm}{2.4mm}\selectfont\bfseries}
+  \def\cel{\fontsize{2.4mm}{2.8mm}\selectfont}
+  \node[font=\cab] at (7.5,27) {ITEM};
+  \node[font=\cab, anchor=west] at (17,27) {DESCRIPTION};
+  \node[font=\cab] at (110,27) {QTY};
+  \node[font=\cab] at (132.5,27) {LENGTH};
+  \node[font=\cab] at (157.5,27) {TOTAL};
+  \def\lin#1#2#3#4#5#6{%
+    \node[font=\cel] at (7.5,#1) {#2};
+    \node[font=\cel, anchor=west] at (17,#1) {#3};
+    \node[font=\cel] at (110,#1) {#4};
+    \node[font=\cel] at (132.5,#1) {#5};
+    \node[font=\cel] at (157.5,#1) {#6};}
+  \lin{21}{1}{Upright}{4}{579}{2316}
+  \lin{15}{2}{Width rail}{6}{166}{996}
+  \lin{9}{3}{Depth rail}{8}{310}{2480}
+  \node[font=\cab, anchor=east] at (143,3) {TOTAL PROFILE};
+  \node[font=\cel\bfseries] at (157.5,3) {5792};
+\end{scope}
+
+% ============================================================
+%  NOTES
+% ============================================================
+\node[anchor=north west, txtnota, text width=174mm, align=left, inner sep=0pt] at (24,86) {%
+  \hyphenpenalty=10000\exhyphenpenalty=10000
+  {\fontsize{2.6mm}{3mm}\selectfont\bfseries NOTES}\\[1.4mm]
+  1. All dimensions are in mm. General length tolerance $\pm$0.5.\\[1mm]
+  2. Cut square: the corner connectors depend on it. Deburr both ends of every piece.\\[1mm]
+  3. Lengths do not include saw kerf. Measure before each cut.\\[1mm]
+  4. Upright positions are measured from the bottom end of the upright to the lower face of each
+     rail. Sheet~02 gives the rail axes from the frame base: subtract 5~mm for the lower connector
+     and 10~mm for half a rail.\\[1mm]
+  5. The corner connectors add 5~mm at each end of the upright and are not part of the cut length.\\[1mm]
+  6. On the back uprights the same marks also locate the back intermediate width rails.\\[1mm]
+  7. The upright is drawn as an interrupted view; the dimensions give the true lengths.\\[1mm]
+  8. Profile section is schematic. Slot and bore geometry follow the supplier catalog.};
+
+\legenda{PARTS AND CUT LIST}{Cut pieces for the 8 in. × 12U frame}{MR2020-03}{1:2 / 2:1}{3}{5}
+
+\end{folha}

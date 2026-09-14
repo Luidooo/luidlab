@@ -1,0 +1,173 @@
+% ============================================================
+%  MR2020-02  Frame assembly
+%  A4 portrait, scale 1:5, first angle projection
+% ============================================================
+%  Included by mr2020.tex; does not compile on its own.
+
+% ---------- scale and view origins (sheet coordinates, mm) ----------
+\def\Esc{0.2}                  % 1:5
+\def\FX{58}  \def\FY{162.2}    % front view, lower left corner
+\def\LX{120} \def\LY{162.2}    % left side view
+\def\TX{58}  \def\TY{66}       % top view
+
+% rectangle in real coordinates inside a view: \ret[style]{ox}{oy}{x1}{y1}{x2}{y2}
+\newcommand{\ret}[7][linhaA]{%
+  \draw[#1] ({#2+(#4)*\Esc},{#3+(#5)*\Esc}) rectangle ({#2+(#6)*\Esc},{#3+(#7)*\Esc});}
+% top view: front at the bottom (first angle), p measured from back to front
+\newcommand{\retT}[4]{%
+  \draw[linhaA] ({\TX+(#1)*\Esc},{\TY+(350-(#2))*\Esc}) rectangle ({\TX+(#3)*\Esc},{\TY+(350-(#4))*\Esc});}
+
+\begin{folha}
+
+% axis heights of the intermediate rails, measured from the frame base
+\pgfmathsetmacro{\EA}{\RackA-\TravIntAEstr}   % 427.85
+\pgfmathsetmacro{\EB}{\RackA-\TravIntBEstr}   % 250.05
+
+% ============================================================
+%  FRONT VIEW
+% ============================================================
+% uprights cut to 579 (5..584), corner connectors adding 5 at the bottom and at the top
+\ret{\FX}{\FY}{0}{5}{20}{584}
+\ret{\FX}{\FY}{186}{5}{206}{584}
+\ret{\FX}{\FY}{0}{0}{20}{5}
+\ret{\FX}{\FY}{186}{0}{206}{5}
+\ret{\FX}{\FY}{0}{584}{20}{589}
+\ret{\FX}{\FY}{186}{584}{206}{589}
+% front width rails, top and bottom
+\ret{\FX}{\FY}{20}{569}{186}{589}
+\ret{\FX}{\FY}{20}{0}{186}{20}
+% back intermediate width rails, seen through the frame
+\ret{\FX}{\FY}{20}{\EA-10}{186}{\EA+10}
+\ret{\FX}{\FY}{20}{\EB-10}{186}{\EB+10}
+% intermediate depth rails, hidden behind the uprights
+\foreach \z in {\EA,\EB}{
+  \foreach \x in {0,186}{
+    \draw[linhaF] ({\FX+\x*\Esc},{\FY+(\z+10)*\Esc}) -- ({\FX+(\x+20)*\Esc},{\FY+(\z+10)*\Esc});
+    \draw[linhaF] ({\FX+\x*\Esc},{\FY+(\z-10)*\Esc}) -- ({\FX+(\x+20)*\Esc},{\FY+(\z-10)*\Esc});
+  }}
+% axis of symmetry
+\draw[linhaG] ({\FX+103*\Esc},{\FY-2}) -- ({\FX+103*\Esc},{\FY+589*\Esc+2});
+
+% dimensions
+\cotaHor{\FX+10*\Esc}{\FX+196*\Esc}{156.5}{\FY}{\FY}{186}
+\cotaHor{\FX}{\FX+206*\Esc}{151}{\FY}{\FY}{206}
+\cotaVer{\FY}{\FY+589*\Esc}{46}{\FX}{\FX}{589}
+
+% detail A callout at the top left vertex
+\draw[linhaB] ({\FX+2},{\FY+589*\Esc-1}) circle (4.5mm);
+\node[font=\fontsize{3mm}{3.4mm}\selectfont\bfseries] at ({\FX+8},{\FY+589*\Esc+3.6}) {A};
+
+\balao{1}{104.5}{266}{\FX+196*\Esc}{230}
+\balao{2}{70}{262}{70}{\FY+579*\Esc}
+
+\node[txtvista] at ({\FX+103*\Esc},144.5) {FRONT VIEW};
+
+% ============================================================
+%  LEFT SIDE VIEW (first angle: right of the front view, front on the right)
+% ============================================================
+\ret{\LX}{\LY}{0}{5}{20}{584}
+\ret{\LX}{\LY}{330}{5}{350}{584}
+\ret{\LX}{\LY}{0}{0}{20}{5}
+\ret{\LX}{\LY}{330}{0}{350}{5}
+\ret{\LX}{\LY}{0}{584}{20}{589}
+\ret{\LX}{\LY}{330}{584}{350}{589}
+\ret{\LX}{\LY}{20}{569}{330}{589}
+\ret{\LX}{\LY}{20}{0}{330}{20}
+\ret{\LX}{\LY}{20}{\EA-10}{330}{\EA+10}
+\ret{\LX}{\LY}{20}{\EB-10}{330}{\EB+10}
+% back intermediate width rails, end-on behind the back upright (hidden)
+\foreach \z in {\EA,\EB}{
+  \draw[linhaF] ({\LX},{\LY+(\z+10)*\Esc}) -- ({\LX+20*\Esc},{\LY+(\z+10)*\Esc});
+  \draw[linhaF] ({\LX},{\LY+(\z-10)*\Esc}) -- ({\LX+20*\Esc},{\LY+(\z-10)*\Esc});}
+% intermediate rail axes
+\draw[linhaG] ({\LX-2},{\LY+\EA*\Esc}) -- ({\LX+350*\Esc+2},{\LY+\EA*\Esc});
+\draw[linhaG] ({\LX-2},{\LY+\EB*\Esc}) -- ({\LX+350*\Esc+2},{\LY+\EB*\Esc});
+
+% dimensions: intermediate rail heights from the frame base
+\cotaVer{\LY}{\LY+\EB*\Esc}{114}{\LX}{\LX}{250.05}
+\cotaVer{\LY}{\LY+\EA*\Esc}{108}{\LX}{\LX}{427.85}
+\cotaHor{\LX}{\LX+350*\Esc}{156.5}{\LY}{\LY}{350}
+% clear gap between the intermediate rails, face to face (no extension lines)
+\draw[setaDupla] (172,{\LY+(\EB+10)*\Esc}) -- (172,{\LY+(\EA-10)*\Esc});
+\node[txtcota, above, rotate=90] at (172,{\LY+(\EA+\EB)/2*\Esc}) {157.80};
+
+\node[txtrot] at ({\LX+340*\Esc},282.6) {FRONT};
+\balao{3}{155}{230}{155}{\LY+(\EA-6)*\Esc}
+
+\node[txtvista] at ({\LX+175*\Esc},144.5) {LEFT SIDE VIEW};
+
+% ============================================================
+%  TOP VIEW (first angle: below the front view, front at the bottom)
+% ============================================================
+\retT{0}{0}{20}{20}     \retT{186}{0}{206}{20}
+\retT{0}{330}{20}{350}  \retT{186}{330}{206}{350}
+\retT{20}{0}{186}{20}   \retT{20}{330}{186}{350}
+\retT{0}{20}{20}{330}   \retT{186}{20}{206}{330}
+\draw[linhaG] ({\TX+103*\Esc},{\TY-1.5}) -- ({\TX+103*\Esc},{\TY+70+2});
+\draw[linhaG] ({\TX-2},{\TY+35}) -- ({\TX+206*\Esc+2},{\TY+35});
+
+\cotaVer{\TY}{\TY+350*\Esc}{106}{\TX+206*\Esc}{\TX+206*\Esc}{350}
+
+\node[txtrot] at ({\TX+103*\Esc},62.3) {FRONT};
+\node[txtvista] at ({\TX+103*\Esc},57) {TOP VIEW};
+
+% ============================================================
+%  DETAIL A, scale 2:1: top vertex with the corner connector
+% ============================================================
+% mapping: X = 132 + 2x ;  Y = 96 + 2(z - 569)
+\draw[linhaA] (132,90) -- (132,126);          % outer face of the upright
+\draw[linhaA] (172,90) -- (172,136);          % inner face / rail abutment
+\draw[linhaA] (132,126) rectangle (172,136);  % connector over the upright end
+\draw[linhaA] (172,136) -- (196,136);         % width rail, top face
+\draw[linhaA] (172,96) -- (196,96);           % width rail, bottom face
+\quebraH{132}{172}{90}
+\quebraV{196}{96}{136}
+\cotaVer{126}{136}{126.5}{132}{132}{5}
+\balao{4}{188}{142}{160}{133}
+
+\node[txtvista] at (164,84.5) {DETAIL A  (2:1)};
+\node[txtnota] at (164,80.9) {5 mm connector at each upright end, bottom mirrored};
+
+% ============================================================
+%  ITEM LIST
+% ============================================================
+\begin{scope}[shift={(110,49)}]
+  \draw[line width=0.35mm] (0,0) rectangle (88,27);
+  \draw[linhaA] (0,21.6) -- (88,21.6);
+  \foreach \y in {5.4,10.8,16.2}{\draw[linhaB] (0,\y) -- (88,\y);}
+  \foreach \x in {10,55,65}{\draw[linhaB] (\x,0) -- (\x,27);}
+  \def\cab{\fontsize{1.9mm}{2.2mm}\selectfont\bfseries}
+  \def\cel{\fontsize{2.2mm}{2.6mm}\selectfont}
+  \node[font=\cab] at (5,24.3) {ITEM};
+  \node[font=\cab, anchor=west] at (11.2,24.3) {DESCRIPTION};
+  \node[font=\cab] at (60,24.3) {QTY};
+  \node[font=\cab, anchor=west] at (66.2,24.3) {NOTE};
+  \def\lin#1#2#3#4#5{%
+    \node[font=\cel] at (5,#1) {#2};
+    \node[font=\cel, anchor=west] at (11.2,#1) {#3};
+    \node[font=\cel] at (60,#1) {#4};
+    \node[font=\cel, anchor=west] at (66.2,#1) {#5};}
+  \lin{18.9}{1}{Upright}{4}{cut 579}
+  \lin{13.5}{2}{Width rail}{6}{cut 166}
+  \lin{8.1}{3}{Depth rail}{8}{cut 310}
+  \lin{2.7}{4}{3-way corner connector}{8}{purchased}
+\end{scope}
+
+% ============================================================
+%  NOTES
+% ============================================================
+\node[anchor=north west, txtnota, text width=31mm, align=left, inner sep=0pt] at (22,136) {%
+  \hyphenpenalty=10000\exhyphenpenalty=10000
+  {\fontsize{2.6mm}{3mm}\selectfont\bfseries NOTES}\\[1.4mm]
+  1. All dimensions are in mm; keep in mind that 1U~=~1.75~in~=~44.45~mm.\\[1mm]
+  2. Heights measured from the frame base, at the bottom face of the lower connectors.\\[1mm]
+  3. Each corner connector adds 5~mm, at the top and at the bottom vertices: uprights are cut
+     to 579 and the frame totals 589. See detail~A.\\[1mm]
+  4. First angle projection. The front is on the right in the side view and at the bottom in
+     the top view.\\[1mm]
+  5. Intermediate depth rails and back width rails at the U3/U4 and U7/U8 boundaries.\\[1mm]
+  6. Cut lengths on sheet~03.};
+
+\legenda{FRAME ASSEMBLY}{20 × 20 extrusion, 8 in. × 12U format}{MR2020-02}{1:5}{2}{5}
+
+\end{folha}

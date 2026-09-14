@@ -1,0 +1,22 @@
+% ============================================================
+%  MR2020  Minirack frame drawing set
+%  Single source: builds every sheet into one PDF.
+%  Compile twice (sheets are placed with remember picture): make
+% ============================================================
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{iso}
+\input{params}
+\pagestyle{empty}
+
+\begin{document}
+
+\input{01-isometrica}  % MR2020-01  Isometric view
+\input{02-estrutura}   % MR2020-02  Frame assembly
+\input{03-pecas}       % MR2020-03  Parts and cut list
+\input{04-vertices}    % MR2020-04  Corner details, inside and outside
+\input{05-unidades}    % MR2020-05  Rack unit layout
+
+\end{document}

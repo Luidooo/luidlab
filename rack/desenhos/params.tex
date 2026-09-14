@@ -1,0 +1,44 @@
+% ============================================================
+%  MINI RACK 2020, cotas mestras (mm)
+%  Fonte única de verdade. Alterar aqui recompila tudo.
+% ============================================================
+
+% ---------- estrutura ----------
+\def\Perfil{20}            % extrusão 2020
+\def\RackL{206}            % largura externa
+\def\RackP{350}            % profundidade externa
+\def\RackA{589}            % altura total da estrutura, conectores incluídos
+\def\Conector{5}           % acréscimo de cada conector de canto: vale no topo E na base
+\def\Coluna{579}           % corte do upright = RackA - 2 x Conector
+
+% ---------- cortes ----------
+\def\TravL{166}            % width rail, 6 peças (4 extremas + 2 intermediárias traseiras)
+\def\TravP{310}            % depth rail, 8 peças (4 extremas + 4 intermediárias laterais)
+
+% ---------- rack 8" custom ----------
+\def\Furos{186}            % eixo a eixo dos furos
+\def\Painel{203.2}         % largura do painel (8 polegadas)
+\def\Vao{166}              % vão livre entre colunas
+
+% ---------- unidades ----------
+\def\Uu{44.45}             % 1U
+\def\NU{12}                % número de unidades
+\def\ZonaU{533.4}          % 12U
+
+% Referências verticais
+\def\UTopoEstr{27.8}       % topo do U1, a partir do topo da estrutura
+\def\UTopoCol{22.8}        % topo do U1, a partir da ponta superior do upright
+
+% eixos das travessas intermediárias (divisas U3/U4 e U7/U8), a partir do topo da estrutura
+\def\TravIntAEstr{161.15}
+\def\TravIntBEstr{338.95}
+
+% faces inferiores das travessas intermediárias, a partir da PONTA INFERIOR do upright
+% (altura na estrutura - 10 de meia travessa - 5 do conector de baixo)
+\def\FaceIntACol{412.85}
+\def\FaceIntBCol{235.05}
+
+% furação EIA-310 dentro de 1U (a partir do topo do U)
+\def\FuroA{6.35}
+\def\FuroB{22.225}
+\def\FuroC{38.1}

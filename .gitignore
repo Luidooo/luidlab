@@ -1,0 +1,14 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# drawing previews generated with `make preview`
+rack/desenhos/*.png
+
+# local planning notes, kept out of the repository
+rack/minirack.html
