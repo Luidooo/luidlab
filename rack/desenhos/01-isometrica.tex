@@ -19,19 +19,19 @@
   \filldraw[linhaA, fill=#1] ({#2},{#4},{#6}) -- ({#3},{#4},{#6}) -- ({#3},{#4},{#7}) -- ({#2},{#4},{#7}) -- cycle;
   \filldraw[linhaA, fill=#1] ({#2},{#4},{#7}) -- ({#3},{#4},{#7}) -- ({#3},{#5},{#7}) -- ({#2},{#5},{#7}) -- cycle;}
 
-% upright: profile 5..584 with slots at 7..13 mm, connectors at 0..5 and 584..589: \upS{x1}{x2}{y1}{y2}
+% upright: profile 3.5..582.5 with slots at 7..13 mm, connectors at 0..3.5 and 582.5..586: \upS{x1}{x2}{y1}{y2}
 \newcommand{\upS}[4]{%
-  \faces{#1}{#2}{#3}{#4}{0}{589}
-  \fill[canal] ({#1},{#3+7},5) -- ({#1},{#3+13},5) -- ({#1},{#3+13},584) -- ({#1},{#3+7},584) -- cycle;
-  \fill[canal] ({#1+7},{#3},5) -- ({#1+13},{#3},5) -- ({#1+13},{#3},584) -- ({#1+7},{#3},584) -- cycle;
+  \faces{#1}{#2}{#3}{#4}{0}{586}
+  \fill[canal] ({#1},{#3+7},3.5) -- ({#1},{#3+13},3.5) -- ({#1},{#3+13},582.5) -- ({#1},{#3+7},582.5) -- cycle;
+  \fill[canal] ({#1+7},{#3},3.5) -- ({#1+13},{#3},3.5) -- ({#1+13},{#3},582.5) -- ({#1+7},{#3},582.5) -- cycle;
   \foreach \o in {7,13}{
-    \draw[linhaB] ({#1},{#3+\o},5) -- ({#1},{#3+\o},584);
-    \draw[linhaB] ({#1+\o},{#3},5) -- ({#1+\o},{#3},584);}
+    \draw[linhaB] ({#1},{#3+\o},3.5) -- ({#1},{#3+\o},582.5);
+    \draw[linhaB] ({#1+\o},{#3},3.5) -- ({#1+\o},{#3},582.5);}
   % top connector: left, front and top faces
-  \faces[conector]{#1}{#2}{#3}{#4}{584}{589}
+  \faces[conector]{#1}{#2}{#3}{#4}{582.5}{586}
   % bottom connector: left and front strips only (its top face is hidden inside the upright)
-  \filldraw[linhaA, fill=conector] ({#1},{#3},0) -- ({#1},{#4},0) -- ({#1},{#4},5) -- ({#1},{#3},5) -- cycle;
-  \filldraw[linhaA, fill=conector] ({#1},{#3},0) -- ({#2},{#3},0) -- ({#2},{#3},5) -- ({#1},{#3},5) -- cycle;}
+  \filldraw[linhaA, fill=conector] ({#1},{#3},0) -- ({#1},{#4},0) -- ({#1},{#4},3.5) -- ({#1},{#3},3.5) -- cycle;
+  \filldraw[linhaA, fill=conector] ({#1},{#3},0) -- ({#2},{#3},0) -- ({#2},{#3},3.5) -- ({#1},{#3},3.5) -- cycle;}
 % width rail, long along X: slots on the front and top faces: \wrS{x1}{x2}{y1}{y2}{z1}{z2}
 \newcommand{\wrS}[6]{%
   \faces{#1}{#2}{#3}{#4}{#5}{#6}
@@ -52,7 +52,7 @@
 % L brackets of one side plane, across x1..x2: back vertices, back and front intermediate joints
 % (no bracket at the front vertices): \ladoCant{x1}{x2}
 \newcommand{\ladoCant}[2]{%
-  \cantYZ{#1}{#2}{330}{569}{-\CantL}{-\CantL}
+  \cantYZ{#1}{#2}{330}{566}{-\CantL}{-\CantL}
   \cantYZ{#1}{#2}{330}{20}{-\CantL}{\CantL}
   \foreach \z in {\EA,\EB}{
     \cantYZ{#1}{#2}{330}{\z+10}{-\CantL}{\CantL}
@@ -61,7 +61,7 @@
     \cantYZ{#1}{#2}{20}{\z-10}{\CantL}{-\CantL}}}
 % L brackets of the back plane on one back upright, inner face at x, legs towards dx: \fundoCant{x}{dx}
 \newcommand{\fundoCant}[2]{%
-  \cantXZ{331}{349}{#1}{569}{#2}{-\CantL}
+  \cantXZ{331}{349}{#1}{566}{#2}{-\CantL}
   \cantXZ{331}{349}{#1}{20}{#2}{\CantL}
   \foreach \z in {\EA,\EB}{
     \cantXZ{331}{349}{#1}{\z+10}{#2}{\CantL}
@@ -73,8 +73,8 @@
 \def\projecao{\node[anchor=base west, font=\fontsize{3mm}{3.4mm}\selectfont\bfseries] at (126.5,19.5) {ISOMETRIC};}
 
 % axis heights of the intermediate rails, measured from the frame base
-\pgfmathsetmacro{\EA}{\RackA-\TravIntAEstr}   % 427.85
-\pgfmathsetmacro{\EB}{\RackA-\TravIntBEstr}   % 250.05
+\pgfmathsetmacro{\EA}{\RackA-\TravIntAEstr}   % 426.35
+\pgfmathsetmacro{\EB}{\RackA-\TravIntBEstr}   % 248.55
 
 \node[txtvista, anchor=west] at (24,280) {ISOMETRIC VIEW \quad 1:5};
 
@@ -89,34 +89,34 @@
   \drS{186}{206}{20}{330}{0}{20}                  % right depth rails, bottom to top
   \drS{186}{206}{20}{330}{\EB-10}{\EB+10}
   \drS{186}{206}{20}{330}{\EA-10}{\EA+10}
-  \drS{186}{206}{20}{330}{569}{589}
+  \drS{186}{206}{20}{330}{566}{586}
   \ladoCant{187}{205}                             % right side L brackets
   \wrS{20}{186}{330}{350}{0}{20}                  % back width rails, bottom to top
   \wrS{20}{186}{330}{350}{\EB-10}{\EB+10}
   \wrS{20}{186}{330}{350}{\EA-10}{\EA+10}
-  \wrS{20}{186}{330}{350}{569}{589}
+  \wrS{20}{186}{330}{350}{566}{586}
   \fundoCant{186}{-\CantL}                        % back plane L brackets
   \fundoCant{20}{\CantL}
   \upS{0}{20}{330}{350}                           % back left upright
   \drS{0}{20}{20}{330}{0}{20}                     % left depth rails, bottom to top
   \drS{0}{20}{20}{330}{\EB-10}{\EB+10}
   \drS{0}{20}{20}{330}{\EA-10}{\EA+10}
-  \drS{0}{20}{20}{330}{569}{589}
+  \drS{0}{20}{20}{330}{566}{586}
   \ladoCant{1}{19}                                % left side L brackets
   \upS{186}{206}{0}{20}                           % front right upright
   \wrS{20}{186}{0}{20}{0}{20}                     % front width rails
-  \wrS{20}{186}{0}{20}{569}{589}
+  \wrS{20}{186}{0}{20}{566}{586}
   \upS{0}{20}{0}{20}                              % front left upright
 \end{scope}
 
 % ============================================================
 %  OVERALL DIMENSIONS
 %  corners on the sheet: O (110,95)  A width (145.68,115.6)
-%                        B depth (49.38,130)  C height (145.68,233.4)
+%                        B depth (49.38,130)  C height (145.68,232.8)
 % ============================================================
 \cotaIso{110}{95}{145.68}{115.6}{6.93}{-4}{30}{206}
 \cotaIso{110}{95}{49.38}{130}{-6.93}{-4}{-30}{350}
-\cotaIso{145.68}{115.6}{145.68}{233.4}{6.93}{-4}{90}{589}
+\cotaIso{145.68}{115.6}{145.68}{232.8}{6.93}{-4}{90}{586}
 
 % front direction (-Y)
 \draw[linhaB, -{Triangle[length=2.4mm,width=0.85mm]}] (162,96) -- (172.4,90);
@@ -126,10 +126,10 @@
 %  ITEM BALLOONS (same numbers as sheets 02 to 04)
 % ============================================================
 \balao{1}{34}{232}{51.1}{219}      % back left upright
-\balao{2}{128}{262}{125.6}{223.8}  % front top width rail
+\balao{2}{128}{262}{125.6}{223.2}  % front top width rail
 \balao{3}{34}{168}{58}{175}        % left intermediate depth rail
-\balao{4}{168}{246}{142.2}{233.4}  % top corner connector
-\balao{5}{64}{270}{83.8}{258.7}    % L bracket, top back right vertex
+\balao{4}{168}{246}{142.2}{232.8}  % top corner connector
+\balao{5}{64}{270}{83.8}{258.1}    % L bracket, top back right vertex
 
 % ============================================================
 %  SHEET INDEX
@@ -158,7 +158,7 @@
   {\fontsize{2.6mm}{3mm}\selectfont\bfseries NOTES}\\[1.4mm]
   1. All dimensions are in mm; keep in mind that 1U~=~1.75~in~=~44.45~mm.\\[1mm]
   2. Isometric drawing at 1:5 on all three axes. Hidden edges are omitted. Slots shaded in light grey, corner connectors in dark grey, L brackets in near black.\\[1mm]
-  3. The overall height of 589 includes the 5~mm corner connectors at the top and bottom vertices; uprights are cut to 579.\\[1mm]
+  3. The overall height of 586 includes the 3.5~mm corner connectors at the top and bottom vertices; uprights are cut to 579.\\[1mm]
   4. Item numbers match sheets 02 to 04. Orthographic views on sheet~02, cut lengths on sheet~03, corner details on sheet~04, rack unit layout on sheet~05.\\[1mm]
   5. Intermediate depth rails and back width rails at the U3/U4 and U7/U8 boundaries.\\[1mm]
   6. L brackets (5) on every upright to rail joint of the sides and the back, none at the four front vertices: 32 in all. Drawn schematically.};

@@ -3,14 +3,14 @@
 %  A4 portrait, front view, scale 1:2.5, first angle projection
 %  Included by mr2020.tex; does not compile on its own.
 % ============================================================
-% Real coordinates inside the drawing scope: x across the frame (0..206), z from the frame base (0..589).
-% Sheet point = (44 + 0.4 x, 47.5 + 0.4 z).  U zone: z 27.8 .. 561.2, 1U = 44.45.
+% Real coordinates inside the drawing scope: x across the frame (0..206), z from the frame base (0..586).
+% Sheet point = (44 + 0.4 x, 47.5 + 0.4 z).  U zone: z 26.3 .. 559.7, 1U = 44.45.
 
 % bay (tray) for a group of U:  \baia{first U}{number of U}
 % draws the two mounting ears with 3 holes per U and the shelf plate,
 % and leaves \zt / \zb (top and bottom of the bay) for the equipment drawn next
 \newcommand{\baia}[2]{%
-  \pgfmathsetmacro{\zt}{561.2-(#1-1)*44.45}%
+  \pgfmathsetmacro{\zt}{559.7-(#1-1)*44.45}%
   \pgfmathsetmacro{\zb}{\zt-#2*44.45}%
   \filldraw[linhaA, fill=white] (1.4,{\zb+0.5}) rectangle (20,{\zt-0.5});
   \filldraw[linhaA, fill=white] (186,{\zb+0.5}) rectangle (204.6,{\zt-0.5});
@@ -33,23 +33,23 @@
 
   % ---------- frame: uprights with front slot, connectors, front width rails ----------
   \foreach \x in {0,186}{
-    \filldraw[linhaA, fill=white] (\x,5) rectangle ({\x+20},584);
-    \fill[canal] ({\x+7},5) rectangle ({\x+13},584);
-    \draw[linhaB] ({\x+7},5) -- ({\x+7},584);
-    \draw[linhaB] ({\x+13},5) -- ({\x+13},584);
-    \filldraw[linhaA, fill=conector] (\x,0) rectangle ({\x+20},5);
-    \filldraw[linhaA, fill=conector] (\x,584) rectangle ({\x+20},589);}
-  \foreach \z in {0,569}{
+    \filldraw[linhaA, fill=white] (\x,3.5) rectangle ({\x+20},582.5);
+    \fill[canal] ({\x+7},3.5) rectangle ({\x+13},582.5);
+    \draw[linhaB] ({\x+7},3.5) -- ({\x+7},582.5);
+    \draw[linhaB] ({\x+13},3.5) -- ({\x+13},582.5);
+    \filldraw[linhaA, fill=conector] (\x,0) rectangle ({\x+20},3.5);
+    \filldraw[linhaA, fill=conector] (\x,582.5) rectangle ({\x+20},586);}
+  \foreach \z in {0,566}{
     \filldraw[linhaA, fill=white] (20,\z) rectangle (186,{\z+20});
     \fill[canal] (20,{\z+7}) rectangle (186,{\z+13});
     \draw[linhaB] (20,{\z+7}) -- (186,{\z+7});
     \draw[linhaB] (20,{\z+13}) -- (186,{\z+13});}
 
   % ---------- U ruler ----------
-  \draw[linhaB] (-10,27.8) -- (-10,561.2);
-  \foreach \n in {0,...,12}{\draw[linhaB] (-10,{27.8+\n*44.45}) -- (-14,{27.8+\n*44.45});}
+  \draw[linhaB] (-10,26.3) -- (-10,559.7);
+  \foreach \n in {0,...,12}{\draw[linhaB] (-10,{26.3+\n*44.45}) -- (-14,{26.3+\n*44.45});}
   \foreach \n in {1,...,12}{
-    \node[anchor=east, font=\fontsize{2.3mm}{2.6mm}\selectfont] at (-16,{561.2-(\n-0.5)*44.45}) {U\n};}
+    \node[anchor=east, font=\fontsize{2.3mm}{2.6mm}\selectfont] at (-16,{559.7-(\n-0.5)*44.45}) {U\n};}
 
   % ---------- title ----------
   \node[anchor=west, font=\fontsize{3.2mm}{3.8mm}\selectfont\bfseries] at (235,583.75) {RACK UNIT LAYOUT};

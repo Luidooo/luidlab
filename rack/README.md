@@ -6,13 +6,13 @@
 
 | | |
 |---|---|
-| External size (W × D × H) | 206 × 350 × 589 mm |
+| External size (W × D × H) | 206 × 350 × 586 mm |
 | Usable height | 533.4 mm, 12U (1U = 1.75 in = 44.45 mm) |
 | Clear width between uprights | 166 mm |
 | Mounting hole pitch | 186 mm, EIA-310 vertical spacing |
 | Panel width | 203.2 mm (8 in.) |
 | Profile | 20 × 20, 6 mm slot, 6063-T5 |
-| Corners | 3-way corner connectors, adding 5 mm at each upright end, plus L brackets (see Hardware) |
+| Corners | 3-way corner connectors, adding 3.5 mm at each upright end, plus L brackets (see Hardware) |
 | Tray mounting | M5 drop-in T-nuts in the front slot |
 | Sides | acrylic panels, air flow from U12 (intake) to U1 (exhaust) |
 
