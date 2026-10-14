@@ -31,8 +31,8 @@
 |---|---|---|---|
 | 3-way corner connector | 8 | 4 | 4 |
 | L corner bracket, 2 holes | 32 | 16 | 16 |
-| Hammer nut, 20 series | 64 | 8 | 56 |
-| Button head hex screw, silver, 8 mm thread (10 mm overall, about 8 mm head) | 64 | 0 | 64 |
+| M5 hammer nut, 20 series | 64 | 8 | 56 |
+| M5 × 8 button head hex screw, silver | 64 | 0 | 64 |
 
 L brackets go on every upright to rail joint of the sides and the back: 2 at each back vertex,
 2 at each intermediate joint on the front uprights and 4 at each intermediate joint on the back
