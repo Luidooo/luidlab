@@ -14,6 +14,10 @@
 \newcommand{\ret}[7][linhaA]{%
   \draw[#1] ({#2+(#4)*\Esc},{#3+(#5)*\Esc}) rectangle ({#2+(#6)*\Esc},{#3+(#7)*\Esc});}
 % top view: front at the bottom (first angle), p measured from back to front
+% L bracket seen square-on, right angle at (a,z), legs da and dz: \cant{ox}{oy}{a}{z}{da}{dz}
+\newcommand{\cant}[6]{%
+  \filldraw[linhaA, fill=cantoneira] ({#1+(#3)*\Esc},{#2+(#4)*\Esc}) -- ({#1+(#3+(#5))*\Esc},{#2+(#4)*\Esc})
+    -- ({#1+(#3)*\Esc},{#2+(#4+(#6))*\Esc}) -- cycle;}
 \newcommand{\retT}[4]{%
   \draw[linhaA] ({\TX+(#1)*\Esc},{\TY+(350-(#2))*\Esc}) rectangle ({\TX+(#3)*\Esc},{\TY+(350-(#4))*\Esc});}
 
@@ -45,6 +49,13 @@
     \draw[linhaF] ({\FX+\x*\Esc},{\FY+(\z+10)*\Esc}) -- ({\FX+(\x+20)*\Esc},{\FY+(\z+10)*\Esc});
     \draw[linhaF] ({\FX+\x*\Esc},{\FY+(\z-10)*\Esc}) -- ({\FX+(\x+20)*\Esc},{\FY+(\z-10)*\Esc});
   }}
+% back plane L brackets, seen through the frame
+\foreach \x/\d in {20/\CantL,186/-\CantL}{
+  \cant{\FX}{\FY}{\x}{569}{\d}{-\CantL}
+  \cant{\FX}{\FY}{\x}{20}{\d}{\CantL}
+  \foreach \z in {\EA,\EB}{
+    \cant{\FX}{\FY}{\x}{\z+10}{\d}{\CantL}
+    \cant{\FX}{\FY}{\x}{\z-10}{\d}{-\CantL}}}
 % axis of symmetry
 \draw[linhaG] ({\FX+103*\Esc},{\FY-2}) -- ({\FX+103*\Esc},{\FY+589*\Esc+2});
 
@@ -79,6 +90,13 @@
 \foreach \z in {\EA,\EB}{
   \draw[linhaF] ({\LX},{\LY+(\z+10)*\Esc}) -- ({\LX+20*\Esc},{\LY+(\z+10)*\Esc});
   \draw[linhaF] ({\LX},{\LY+(\z-10)*\Esc}) -- ({\LX+20*\Esc},{\LY+(\z-10)*\Esc});}
+% side L brackets: back vertices, back and front intermediate joints (none at the front vertices)
+\cant{\LX}{\LY}{20}{569}{\CantL}{-\CantL}
+\cant{\LX}{\LY}{20}{20}{\CantL}{\CantL}
+\foreach \z in {\EA,\EB}{
+  \foreach \p/\d in {20/\CantL,330/-\CantL}{
+    \cant{\LX}{\LY}{\p}{\z+10}{\d}{\CantL}
+    \cant{\LX}{\LY}{\p}{\z-10}{\d}{-\CantL}}}
 % intermediate rail axes
 \draw[linhaG] ({\LX-2},{\LY+\EA*\Esc}) -- ({\LX+350*\Esc+2},{\LY+\EA*\Esc});
 \draw[linhaG] ({\LX-2},{\LY+\EB*\Esc}) -- ({\LX+350*\Esc+2},{\LY+\EB*\Esc});
@@ -92,6 +110,7 @@
 \node[txtcota, above, rotate=90] at (172,{\LY+(\EA+\EB)/2*\Esc}) {157.80};
 
 \node[txtrot] at ({\LX+340*\Esc},282.6) {FRONT};
+\balao{5}{108}{236}{\LX+25*\Esc}{\LY+(\EA+16)*\Esc}
 \balao{3}{155}{230}{155}{\LY+(\EA-6)*\Esc}
 
 \node[txtvista] at ({\LX+175*\Esc},144.5) {LEFT SIDE VIEW};
@@ -131,26 +150,29 @@
 % ============================================================
 %  ITEM LIST
 % ============================================================
-\begin{scope}[shift={(110,49)}]
-  \draw[line width=0.35mm] (0,0) rectangle (88,27);
-  \draw[linhaA] (0,21.6) -- (88,21.6);
-  \foreach \y in {5.4,10.8,16.2}{\draw[linhaB] (0,\y) -- (88,\y);}
-  \foreach \x in {10,55,65}{\draw[linhaB] (\x,0) -- (\x,27);}
+\begin{scope}[shift={(110,47)}]
+  \draw[line width=0.35mm] (0,0) rectangle (88,28.8);
+  \draw[linhaA] (0,25.2) -- (88,25.2);
+  \foreach \y in {3.6,7.2,...,21.6}{\draw[linhaB] (0,\y) -- (88,\y);}
+  \foreach \x in {10,55,65}{\draw[linhaB] (\x,0) -- (\x,28.8);}
   \def\cab{\fontsize{1.9mm}{2.2mm}\selectfont\bfseries}
   \def\cel{\fontsize{2.2mm}{2.6mm}\selectfont}
-  \node[font=\cab] at (5,24.3) {ITEM};
-  \node[font=\cab, anchor=west] at (11.2,24.3) {DESCRIPTION};
-  \node[font=\cab] at (60,24.3) {QTY};
-  \node[font=\cab, anchor=west] at (66.2,24.3) {NOTE};
+  \node[font=\cab] at (5,27) {ITEM};
+  \node[font=\cab, anchor=west] at (11.2,27) {DESCRIPTION};
+  \node[font=\cab] at (60,27) {QTY};
+  \node[font=\cab, anchor=west] at (66.2,27) {NOTE};
   \def\lin#1#2#3#4#5{%
     \node[font=\cel] at (5,#1) {#2};
     \node[font=\cel, anchor=west] at (11.2,#1) {#3};
     \node[font=\cel] at (60,#1) {#4};
     \node[font=\cel, anchor=west] at (66.2,#1) {#5};}
-  \lin{18.9}{1}{Upright}{4}{cut 579}
-  \lin{13.5}{2}{Width rail}{6}{cut 166}
-  \lin{8.1}{3}{Depth rail}{8}{cut 310}
-  \lin{2.7}{4}{3-way corner connector}{8}{purchased}
+  \lin{23.4}{1}{Upright}{4}{cut 579}
+  \lin{19.8}{2}{Width rail}{6}{cut 166}
+  \lin{16.2}{3}{Depth rail}{8}{cut 310}
+  \lin{12.6}{4}{3-way corner connector}{8}{4 in stock}
+  \lin{9}{5}{L corner bracket, 2 holes}{32}{16 in stock}
+  \lin{5.4}{6}{Hammer nut, 20 series}{64}{8 in stock}
+  \lin{1.8}{7}{Button head hex screw, 8 mm}{64}{purchased}
 \end{scope}
 
 % ============================================================
@@ -166,7 +188,10 @@
   4. First angle projection. The front is on the right in the side view and at the bottom in
      the top view.\\[1mm]
   5. Intermediate depth rails and back width rails at the U3/U4 and U7/U8 boundaries.\\[1mm]
-  6. Cut lengths on sheet~03.};
+  6. Cut lengths on sheet~03.\\[1mm]
+  7. L brackets (5) at every upright to rail joint of the sides and the back, none at the front
+     vertices, which stay clear for the rack panels. Each takes two hammer nuts (6) and two
+     screws (7).};
 
 \legenda{FRAME ASSEMBLY}{20 × 20 extrusion, 8 in. × 12U format}{MR2020-02}{1:5}{2}{5}
 

@@ -54,6 +54,11 @@
   \filldraw[linhaA, fill=conector] (186,330,584) -- (206,330,584) -- (206,330,589) -- (186,330,589) -- cycle;
   \filldraw[linhaA, fill=conector] (186,330,589) -- (206,330,589) -- (206,350,589) -- (186,350,589) -- cycle;
 
+  % ---- L brackets under the rails: side plane on the upright front face, back plane on its inner face ----
+  \vista{-1}{-1}{1}
+  \cantYZ{187}{205}{330}{569}{-\CantL}{-\CantL}
+  \cantXZ{331}{349}{186}{569}{-\CantL}{-\CantL}
+
   % ---- width rail stub, cut at X = 146 (X 146..186, Y 330..350, Z 569..589) ----
   \filldraw[linhaA, fill=white] (146,330,569) -- (186,330,569) -- (186,330,589) -- (146,330,589) -- cycle;
   \filldraw[linhaA, fill=white] (146,330,589) -- (186,330,589) -- (186,350,589) -- (146,350,589) -- cycle;
@@ -84,6 +89,9 @@
 \chamada{66.7}{222}{40}{200}{north west}{WIDTH RAIL (2), CUT END}
 \chamada{153.3}{222}{180}{200}{north east}{DEPTH RAIL (3), CUT END}
 \chamada{118.7}{197}{118.7}{190}{north}{UPRIGHT (1), BROKEN BELOW}
+\chamada{103.3}{222}{85}{196}{north east}{L BRACKET (5)}
+\fill (116.7,222.5) circle (0.35mm);
+\draw[linhaB] (116.7,222.5) -- (85,196);
 
 % ============================================================
 %  B  OUTSIDE: viewer at +X, +Y, +Z
@@ -91,6 +99,11 @@
 % ============================================================
 \begin{scope}[shift={(-14.7,-186)},
     x={(-0.8660254mm,-0.5mm)}, y={(0.8660254mm,-0.5mm)}, z={(0mm,1mm)}]
+
+  % ---- L brackets under the rails, outer faces seen below the rail stubs ----
+  \vista{1}{1}{1}
+  \cantYZ{187}{205}{330}{569}{-\CantL}{-\CantL}
+  \cantXZ{331}{349}{186}{569}{-\CantL}{-\CantL}
 
   % ---- width rail stub (X 146..186, Y 330..350, Z 569..589): back and top faces ----
   \filldraw[linhaA, fill=white] (146,350,569) -- (186,350,569) -- (186,350,589) -- (146,350,589) -- cycle;
@@ -133,16 +146,19 @@
 \chamada{144.6}{135}{180}{150}{south}{SLOT, 6 mm OPENING}
 \chamada{127.3}{122}{170}{95}{north west}{OUTER FACES FLUSH}
 \chamada{118.7}{70}{150}{62}{west}{UPRIGHT (1), BROKEN BELOW}
+\chamada{87.7}{112}{60}{95}{north east}{L BRACKET (5)}
+\chamada{132.3}{112}{150}{80}{north west}{L BRACKET (5)}
 
 % ============================================================
 %  NOTES
 % ============================================================
-\node[anchor=north west, txtnota, text width=120mm, align=left, inner sep=0pt] at (24,60) {%
+\node[anchor=north west, txtnota, text width=120mm, align=left, inner sep=0pt] at (24,63) {%
   \hyphenpenalty=10000\exhyphenpenalty=10000
   {\fontsize{2.6mm}{3mm}\selectfont\bfseries NOTES}\\[1mm]
   1. A: seen from inside the frame; the cut ends of the rails show the 2020 profile section.\\[0.6mm]
   2. B: seen from outside the frame; the outer faces of the upright and rails are flush.\\[0.6mm]
-  3. Corner connector drawn schematically. Item numbers as on sheets 01 to 03.};
+  3. Corner connector and L brackets drawn schematically. Item numbers as on sheets 01 to 03.\\[0.6mm]
+  4. Each back vertex takes two L brackets under the rails: side plane and back plane.};
 
 \legenda{CORNER DETAILS}{Top back right vertex, inside and outside views}{MR2020-04}{1:1}{4}{5}
 

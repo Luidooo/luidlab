@@ -57,6 +57,34 @@
 % ---------- colours for the detailed isometric views ----------
 \colorlet{canal}{gray!40}      % slot interior
 \colorlet{conector}{gray!65}   % 3-way corner connectors
+\colorlet{cantoneira}{gray!85} % L corner brackets
+
+% ---------- L corner bracket, schematic triangular prism, in a 3D scope ----------
+% \vista{vx}{vy}{vz}: signs of the viewer direction, set before drawing brackets
+% \cantYZ{x1}{x2}{y}{z}{dy}{dz}: bracket in a side plane, right angle at (y,z),
+%   legs to (y+dy,z) and (y,z+dz), across x1..x2
+% \cantXZ{y1}{y2}{x}{z}{dx}{dz}: bracket in the front or back plane, across y1..y2
+% Only the faces turned to the viewer are drawn; paint before the parts in front of it.
+\newcommand{\vista}[3]{\def\vistaX{#1}\def\vistaY{#2}\def\vistaZ{#3}}
+\vista{-1}{-1}{1}
+\newcommand{\cantYZ}[6]{%
+  \pgfmathtruncatemacro{\cantVis}{sign(#5)*\vistaY + sign(#6)*\vistaZ}%
+  \ifnum\cantVis>0
+    \filldraw[linhaA, fill=cantoneira] ({#1},{#3+(#5)},{#4}) -- ({#2},{#3+(#5)},{#4})
+      -- ({#2},{#3},{#4+(#6)}) -- ({#1},{#3},{#4+(#6)}) -- cycle;
+  \fi
+  \ifnum\vistaX<0 \def\cantF{#1}\else\def\cantF{#2}\fi
+  \filldraw[linhaA, fill=cantoneira] ({\cantF},{#3},{#4}) -- ({\cantF},{#3+(#5)},{#4})
+    -- ({\cantF},{#3},{#4+(#6)}) -- cycle;}
+\newcommand{\cantXZ}[6]{%
+  \pgfmathtruncatemacro{\cantVis}{sign(#5)*\vistaX + sign(#6)*\vistaZ}%
+  \ifnum\cantVis>0
+    \filldraw[linhaA, fill=cantoneira] ({#3+(#5)},{#1},{#4}) -- ({#3+(#5)},{#2},{#4})
+      -- ({#3},{#2},{#4+(#6)}) -- ({#3},{#1},{#4+(#6)}) -- cycle;
+  \fi
+  \ifnum\vistaY<0 \def\cantF{#1}\else\def\cantF{#2}\fi
+  \filldraw[linhaA, fill=cantoneira] ({#3},{\cantF},{#4}) -- ({#3+(#5)},{\cantF},{#4})
+    -- ({#3},{\cantF},{#4+(#6)}) -- cycle;}
 
 % ---------- leader with a dot on the surface: \chamada{px}{py}{tx}{ty}{anchor}{text} ----------
 \newcommand{\chamada}[6]{%

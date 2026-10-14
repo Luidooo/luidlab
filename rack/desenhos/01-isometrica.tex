@@ -49,6 +49,24 @@
     \draw[linhaB] ({#1},{#3},{#5+\o}) -- ({#1},{#4},{#5+\o});
     \draw[linhaB] ({#1+\o},{#3},{#6}) -- ({#1+\o},{#4},{#6});}}
 
+% L brackets of one side plane, across x1..x2: back vertices, back and front intermediate joints
+% (no bracket at the front vertices): \ladoCant{x1}{x2}
+\newcommand{\ladoCant}[2]{%
+  \cantYZ{#1}{#2}{330}{569}{-\CantL}{-\CantL}
+  \cantYZ{#1}{#2}{330}{20}{-\CantL}{\CantL}
+  \foreach \z in {\EA,\EB}{
+    \cantYZ{#1}{#2}{330}{\z+10}{-\CantL}{\CantL}
+    \cantYZ{#1}{#2}{330}{\z-10}{-\CantL}{-\CantL}
+    \cantYZ{#1}{#2}{20}{\z+10}{\CantL}{\CantL}
+    \cantYZ{#1}{#2}{20}{\z-10}{\CantL}{-\CantL}}}
+% L brackets of the back plane on one back upright, inner face at x, legs towards dx: \fundoCant{x}{dx}
+\newcommand{\fundoCant}[2]{%
+  \cantXZ{331}{349}{#1}{569}{#2}{-\CantL}
+  \cantXZ{331}{349}{#1}{20}{#2}{\CantL}
+  \foreach \z in {\EA,\EB}{
+    \cantXZ{331}{349}{#1}{\z+10}{#2}{\CantL}
+    \cantXZ{331}{349}{#1}{\z-10}{#2}{-\CantL}}}
+
 \begin{folha}
 
 % title block shows the projection method as text on this sheet
@@ -72,15 +90,19 @@
   \drS{186}{206}{20}{330}{\EB-10}{\EB+10}
   \drS{186}{206}{20}{330}{\EA-10}{\EA+10}
   \drS{186}{206}{20}{330}{569}{589}
+  \ladoCant{187}{205}                             % right side L brackets
   \wrS{20}{186}{330}{350}{0}{20}                  % back width rails, bottom to top
   \wrS{20}{186}{330}{350}{\EB-10}{\EB+10}
   \wrS{20}{186}{330}{350}{\EA-10}{\EA+10}
   \wrS{20}{186}{330}{350}{569}{589}
+  \fundoCant{186}{-\CantL}                        % back plane L brackets
+  \fundoCant{20}{\CantL}
   \upS{0}{20}{330}{350}                           % back left upright
   \drS{0}{20}{20}{330}{0}{20}                     % left depth rails, bottom to top
   \drS{0}{20}{20}{330}{\EB-10}{\EB+10}
   \drS{0}{20}{20}{330}{\EA-10}{\EA+10}
   \drS{0}{20}{20}{330}{569}{589}
+  \ladoCant{1}{19}                                % left side L brackets
   \upS{186}{206}{0}{20}                           % front right upright
   \wrS{20}{186}{0}{20}{0}{20}                     % front width rails
   \wrS{20}{186}{0}{20}{569}{589}
@@ -107,6 +129,7 @@
 \balao{2}{128}{262}{125.6}{223.8}  % front top width rail
 \balao{3}{34}{168}{58}{175}        % left intermediate depth rail
 \balao{4}{168}{246}{142.2}{233.4}  % top corner connector
+\balao{5}{64}{270}{83.8}{258.7}    % L bracket, top back right vertex
 
 % ============================================================
 %  SHEET INDEX
@@ -134,10 +157,11 @@
   \hyphenpenalty=10000\exhyphenpenalty=10000
   {\fontsize{2.6mm}{3mm}\selectfont\bfseries NOTES}\\[1.4mm]
   1. All dimensions are in mm; keep in mind that 1U~=~1.75~in~=~44.45~mm.\\[1mm]
-  2. Isometric drawing at 1:5 on all three axes. Hidden edges are omitted. Slots shaded in light grey, corner connectors in dark grey.\\[1mm]
+  2. Isometric drawing at 1:5 on all three axes. Hidden edges are omitted. Slots shaded in light grey, corner connectors in dark grey, L brackets in near black.\\[1mm]
   3. The overall height of 589 includes the 5~mm corner connectors at the top and bottom vertices; uprights are cut to 579.\\[1mm]
   4. Item numbers match sheets 02 to 04. Orthographic views on sheet~02, cut lengths on sheet~03, corner details on sheet~04, rack unit layout on sheet~05.\\[1mm]
-  5. Intermediate depth rails and back width rails at the U3/U4 and U7/U8 boundaries.};
+  5. Intermediate depth rails and back width rails at the U3/U4 and U7/U8 boundaries.\\[1mm]
+  6. L brackets (5) on every upright to rail joint of the sides and the back, none at the four front vertices: 32 in all. Drawn schematically.};
 
 \legenda{ISOMETRIC VIEW}{Frame overview, 8 in. × 12U format}{MR2020-01}{1:5}{1}{5}
 
