@@ -33,11 +33,13 @@
 | L corner bracket, 2 holes | 32 | 16 | 16 |
 | M5 hammer nut, 20 series | 64 | 8 | 56 |
 | M5 × 8 button head hex screw, silver | 64 | 0 | 64 |
+| M4 headless hex screw | 16 | 8 | 8 |
 
 L brackets go on every upright to rail joint of the sides and the back: 2 at each back vertex,
 2 at each intermediate joint on the front uprights and 4 at each intermediate joint on the back
 uprights. The four front vertices take none, so the front stays clear for the rack panels.
 Each bracket takes two hammer nuts and two screws.
+Each 3-way corner connector takes two M4 headless screws.
 
 ## Unit layout
 
