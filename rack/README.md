@@ -30,15 +30,17 @@
 | Item | Qty | In stock | To buy |
 |---|---|---|---|
 | 3-way corner connector | 8 | 4 | 4 |
-| L corner bracket, 2 holes | 32 | 16 | 16 |
-| M5 hammer nut, 20 series | 64 | 8 | 56 |
-| M5 × 8 button head hex screw, silver | 64 | 0 | 64 |
+| L corner bracket, 2 holes, 45° rib | 48 | 16 | 32 |
+| M5 hammer nut, 20 series | 96 | 8 | 88 |
+| M5 × 8 button head hex screw, silver | 96 | 0 | 96 |
 | M4 × 3 headless hex screw | 64 | 32 | 32 |
 
-L brackets go on every upright to rail joint of the sides and the back: 2 at each back vertex,
-2 at each intermediate joint on the front uprights and 4 at each intermediate joint on the back
-uprights. The four front vertices take none, so the front stays clear for the rack panels.
-Each bracket takes two hammer nuts and two screws.
+L brackets go on every upright to rail joint of the sides, the back and the front vertices,
+plus one lying flat at each inner corner of the base and top frames: 3 at each of the 8
+vertices, 2 at each intermediate joint on the front uprights and 4 at each intermediate joint
+on the back uprights. Each bracket takes two hammer nuts and two screws.
+The front plane brackets sit behind the panels at Z 20 to 40 and 546 to 566, inside U12 and U1:
+the trays of those two units need a notch at the corners.
 Each 3-way corner connector takes eight M4 headless screws, two in each leg.
 
 ## Unit layout

@@ -20,6 +20,10 @@
     -- ({#1+(#3)*\Esc},{#2+(#4+(#6))*\Esc}) -- cycle;}
 \newcommand{\retT}[4]{%
   \draw[linhaA] ({\TX+(#1)*\Esc},{\TY+(350-(#2))*\Esc}) rectangle ({\TX+(#3)*\Esc},{\TY+(350-(#4))*\Esc});}
+% flat L bracket in the top view, right angle at (x,p), legs dx and dp: \cantT{x}{p}{dx}{dp}
+\newcommand{\cantT}[4]{%
+  \filldraw[linhaA, fill=cantoneira] ({\TX+(#1)*\Esc},{\TY+(350-(#2))*\Esc})
+    -- ({\TX+(#1+(#3))*\Esc},{\TY+(350-(#2))*\Esc}) -- ({\TX+(#1)*\Esc},{\TY+(350-(#2+(#4)))*\Esc}) -- cycle;}
 
 \begin{folha}
 
@@ -49,7 +53,7 @@
     \draw[linhaF] ({\FX+\x*\Esc},{\FY+(\z+10)*\Esc}) -- ({\FX+(\x+20)*\Esc},{\FY+(\z+10)*\Esc});
     \draw[linhaF] ({\FX+\x*\Esc},{\FY+(\z-10)*\Esc}) -- ({\FX+(\x+20)*\Esc},{\FY+(\z-10)*\Esc});
   }}
-% back plane L brackets, seen through the frame
+% back plane L brackets, seen through the frame; the front plane ones at the vertices fall on the same outline
 \foreach \x/\d in {20/\CantL,186/-\CantL}{
   \cant{\FX}{\FY}{\x}{566}{\d}{-\CantL}
   \cant{\FX}{\FY}{\x}{20}{\d}{\CantL}
@@ -90,9 +94,11 @@
 \foreach \z in {\EA,\EB}{
   \draw[linhaF] ({\LX},{\LY+(\z+10)*\Esc}) -- ({\LX+20*\Esc},{\LY+(\z+10)*\Esc});
   \draw[linhaF] ({\LX},{\LY+(\z-10)*\Esc}) -- ({\LX+20*\Esc},{\LY+(\z-10)*\Esc});}
-% side L brackets: back vertices, back and front intermediate joints (none at the front vertices)
+% side L brackets: all four vertices, back and front intermediate joints
 \cant{\LX}{\LY}{20}{566}{\CantL}{-\CantL}
 \cant{\LX}{\LY}{20}{20}{\CantL}{\CantL}
+\cant{\LX}{\LY}{330}{566}{-\CantL}{-\CantL}
+\cant{\LX}{\LY}{330}{20}{-\CantL}{\CantL}
 \foreach \z in {\EA,\EB}{
   \foreach \p/\d in {20/\CantL,330/-\CantL}{
     \cant{\LX}{\LY}{\p}{\z+10}{\d}{\CantL}
@@ -122,6 +128,9 @@
 \retT{0}{330}{20}{350}  \retT{186}{330}{206}{350}
 \retT{20}{0}{186}{20}   \retT{20}{330}{186}{350}
 \retT{0}{20}{20}{330}   \retT{186}{20}{206}{330}
+% flat L brackets of the top frame (the base ones lie under them)
+\cantT{20}{20}{\CantL}{\CantL}     \cantT{186}{20}{-\CantL}{\CantL}
+\cantT{20}{330}{\CantL}{-\CantL}   \cantT{186}{330}{-\CantL}{-\CantL}
 \draw[linhaG] ({\TX+103*\Esc},{\TY-1.5}) -- ({\TX+103*\Esc},{\TY+70+2});
 \draw[linhaG] ({\TX-2},{\TY+35}) -- ({\TX+206*\Esc+2},{\TY+35});
 
@@ -170,9 +179,9 @@
   \lin{23.4}{2}{Width rail}{6}{cut 166}
   \lin{19.8}{3}{Depth rail}{8}{cut 310}
   \lin{16.2}{4}{3-way corner connector}{8}{4 in stock}
-  \lin{12.6}{5}{L corner bracket, 2 holes}{32}{16 in stock}
-  \lin{9}{6}{M5 hammer nut, 20 series}{64}{8 in stock}
-  \lin{5.4}{7}{M5 × 8 button head hex screw}{64}{purchased}
+  \lin{12.6}{5}{L corner bracket, 2 holes}{48}{16 in stock}
+  \lin{9}{6}{M5 hammer nut, 20 series}{96}{8 in stock}
+  \lin{5.4}{7}{M5 × 8 button head hex screw}{96}{purchased}
   \lin{1.8}{8}{M4 × 3 headless hex screw}{64}{32 in stock}
 \end{scope}
 
@@ -190,9 +199,9 @@
      the top view.\\[1mm]
   5. Intermediate depth rails and back width rails at the U3/U4 and U7/U8 boundaries.\\[1mm]
   6. Cut lengths on sheet~03.\\[1mm]
-  7. L brackets (5) at every upright to rail joint of the sides and the back, none at the front
-     vertices, which stay clear for the rack panels. Each takes two hammer nuts (6) and two
-     screws (7).};
+  7. L brackets (5) at every upright to rail joint of the sides, the back and the front
+     vertices, plus one flat at each inner corner of the base and top frames. Each takes two
+     hammer nuts (6) and two screws (7).};
 
 \legenda{FRAME ASSEMBLY}{20 × 20 extrusion, 8 in. × 12U format}{MR2020-02}{1:5}{2}{5}
 

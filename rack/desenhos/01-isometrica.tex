@@ -49,11 +49,13 @@
     \draw[linhaB] ({#1},{#3},{#5+\o}) -- ({#1},{#4},{#5+\o});
     \draw[linhaB] ({#1+\o},{#3},{#6}) -- ({#1+\o},{#4},{#6});}}
 
-% L brackets of one side plane, across x1..x2: back vertices, back and front intermediate joints
-% (no bracket at the front vertices): \ladoCant{x1}{x2}
+% L brackets of one side plane, across x1..x2: all four vertices, back and front intermediate
+% joints: \ladoCant{x1}{x2}
 \newcommand{\ladoCant}[2]{%
   \cantYZ{#1}{#2}{330}{566}{-\CantL}{-\CantL}
   \cantYZ{#1}{#2}{330}{20}{-\CantL}{\CantL}
+  \cantYZ{#1}{#2}{20}{566}{\CantL}{-\CantL}
+  \cantYZ{#1}{#2}{20}{20}{\CantL}{\CantL}
   \foreach \z in {\EA,\EB}{
     \cantYZ{#1}{#2}{330}{\z+10}{-\CantL}{\CantL}
     \cantYZ{#1}{#2}{330}{\z-10}{-\CantL}{-\CantL}
@@ -66,6 +68,14 @@
   \foreach \z in {\EA,\EB}{
     \cantXZ{331}{349}{#1}{\z+10}{#2}{\CantL}
     \cantXZ{331}{349}{#1}{\z-10}{#2}{-\CantL}}}
+% L brackets of the front plane at the two vertices of one front upright: \frenteCant{x}{dx}
+\newcommand{\frenteCant}[2]{%
+  \cantXZ{1}{19}{#1}{566}{#2}{-\CantL}
+  \cantXZ{1}{19}{#1}{20}{#2}{\CantL}}
+% flat L brackets in the base and top frames at one inner corner (x,y): \planoCant{x}{y}{dx}{dy}
+\newcommand{\planoCant}[4]{%
+  \cantXY{1}{19}{#1}{#2}{#3}{#4}
+  \cantXY{567}{585}{#1}{#2}{#3}{#4}}
 
 \begin{folha}
 
@@ -97,6 +107,9 @@
   \wrS{20}{186}{330}{350}{566}{586}
   \fundoCant{186}{-\CantL}                        % back plane L brackets
   \fundoCant{20}{\CantL}
+  \planoCant{186}{330}{-\CantL}{-\CantL}          % flat L brackets, back corners
+  \planoCant{20}{330}{\CantL}{-\CantL}
+  \planoCant{20}{20}{\CantL}{\CantL}              % flat L brackets, front left corner
   \upS{0}{20}{330}{350}                           % back left upright
   \drS{0}{20}{20}{330}{0}{20}                     % left depth rails, bottom to top
   \drS{0}{20}{20}{330}{\EB-10}{\EB+10}
@@ -104,8 +117,11 @@
   \drS{0}{20}{20}{330}{566}{586}
   \ladoCant{1}{19}                                % left side L brackets
   \upS{186}{206}{0}{20}                           % front right upright
+  \planoCant{186}{20}{-\CantL}{\CantL}            % flat L brackets, front right corner
   \wrS{20}{186}{0}{20}{0}{20}                     % front width rails
   \wrS{20}{186}{0}{20}{566}{586}
+  \frenteCant{186}{-\CantL}                       % front plane L brackets
+  \frenteCant{20}{\CantL}
   \upS{0}{20}{0}{20}                              % front left upright
 \end{scope}
 
@@ -161,7 +177,7 @@
   3. The overall height of 586 includes the 3.5~mm corner connectors at the top and bottom vertices; uprights are cut to 579.\\[1mm]
   4. Item numbers match sheets 02 to 04. Orthographic views on sheet~02, cut lengths on sheet~03, corner details on sheet~04, rack unit layout on sheet~05.\\[1mm]
   5. Intermediate depth rails and back width rails at the U3/U4 and U7/U8 boundaries.\\[1mm]
-  6. L brackets (5) on every upright to rail joint of the sides and the back, none at the four front vertices: 32 in all. Drawn schematically.};
+  6. L brackets (5) on every upright to rail joint of the sides, the back and the front vertices, plus one lying flat at each inner corner of the base and top frames: 48 in all. Drawn schematically.};
 
 \legenda{ISOMETRIC VIEW}{Frame overview, 8 in. × 12U format}{MR2020-01}{1:5}{1}{5}
 
