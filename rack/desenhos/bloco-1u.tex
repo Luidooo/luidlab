@@ -1,0 +1,184 @@
+% ============================================================
+%  MR2020-06  1U nut block (proposal, standalone sheet)
+%  Printed spacer that runs inside the front slot of the front uprights
+%  and holds the three M5 drop-in nuts of one rack unit.
+%  pdflatex bloco-1u.tex (twice)
+% ============================================================
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{iso}
+\input{params}
+\pagestyle{empty}
+
+% ---------- block dimensions (mm) ----------
+\def\BL{44.45}    % length = 1U
+\def\BH{3.9}      % height: 1.4 below the face to 5.3, 0.2 clear of lips and core
+\def\BP{6.4}      % nut pocket along the slot: nut 6 + 0.4
+\def\BD{2.6}      % pocket depth from the top of the block
+\def\BF{1.3}      % floor under the pockets
+\def\BT{5.2}      % half width at the top (10.4)
+\def\BB{3.7}      % half width at the bottom (7.4)
+\def\BM{4.2}      % half width of the floor at the pocket bottom (8.4)
+
+\begin{document}
+\begin{folha}
+
+\def\material{PETG, 3D printed, 100\,\% infill}
+\def\data{2026-10-29}
+
+\node[txtvista, anchor=west] at (24,280) {1U NUT BLOCK \quad PROPOSAL FOR APPROVAL};
+
+% ============================================================
+%  FRONT VIEW 2:1, pockets up (towards the slot opening)
+%  sheet point = (FVx + 2 s, FVy + 2 h)
+% ============================================================
+\def\FVx{62} \def\FVy{250}
+\begin{scope}[shift={(\FVx,\FVy)}, x=2mm, y=2mm]
+  \draw[linhaA] (0,0) -- (\BL,0) -- (\BL,\BH) -- (41.3,\BH) -- (41.3,\BF) -- (34.9,\BF) -- (34.9,\BH)
+    -- (25.425,\BH) -- (25.425,\BF) -- (19.025,\BF) -- (19.025,\BH) -- (9.55,\BH) -- (9.55,\BF)
+    -- (3.15,\BF) -- (3.15,\BH) -- (0,\BH) -- cycle;
+  \foreach \c in {6.35,22.225,38.1}{\draw[linhaG] (\c,-1.2) -- (\c,{\BH+1.2});}
+\end{scope}
+% positions of the nut axes from the block end
+\cotaHor{\FVx}{\FVx+2*6.35}{\FVy+13}{\FVy+7.8}{\FVy+10.2}{6.35}
+\cotaHor{\FVx}{\FVx+2*22.225}{\FVy+19}{\FVy+7.8}{\FVy+10.2}{22.225}
+\cotaHor{\FVx}{\FVx+2*38.1}{\FVy+25}{\FVy+7.8}{\FVy+10.2}{38.1}
+\cotaHor{\FVx}{\FVx+2*\BL}{\FVy-7}{\FVy}{\FVy}{44.45 (1U)}
+\cotaVer{\FVy}{\FVy+2*\BH}{\FVx-7}{\FVx}{\FVx}{3.9}
+\cotaVer{\FVy+2*\BF}{\FVy+2*\BH}{\FVx+2*\BL+7}{\FVx+2*41.3}{\FVx+2*\BL}{2.6}
+\cotaVer{\FVy}{\FVy+2*\BF}{\FVx+2*\BL+15}{\FVx+2*\BL}{\FVx+2*41.3}{1.3}
+\node[txtvista] at (\FVx+44.45,238) {FRONT VIEW \quad 2:1};
+
+% section planes on the front view
+\draw[linhaB] ({\FVx+2*14.3},{\FVy-3}) -- ({\FVx+2*14.3},{\FVy-1});
+\draw[linhaB] ({\FVx+2*14.3},{\FVy+2*\BH+1}) -- ({\FVx+2*14.3},{\FVy+2*\BH+3});
+\node[font=\fontsize{2.6mm}{3mm}\selectfont\bfseries] at ({\FVx+2*14.3+2.5},{\FVy-3}) {A};
+\draw[linhaB] ({\FVx+2*22.225},{\FVy-3}) -- ({\FVx+2*22.225},{\FVy-1});
+\node[font=\fontsize{2.6mm}{3mm}\selectfont\bfseries] at ({\FVx+2*22.225+2.5},{\FVy-3}) {B};
+
+% ============================================================
+%  TOP VIEW 2:1 (first angle: below the front view)
+%  sheet point = (TVx + 2 s, TVc + 2 w)
+% ============================================================
+\def\TVx{62} \def\TVc{212}
+\begin{scope}[shift={(\TVx,\TVc)}, x=2mm, y=2mm]
+  % silhouette: full top width between pockets, floor width inside them
+  \draw[linhaA] (0,-\BT) -- (3.15,-\BT) -- (3.15,-\BM) -- (9.55,-\BM) -- (9.55,-\BT) -- (19.025,-\BT)
+    -- (19.025,-\BM) -- (25.425,-\BM) -- (25.425,-\BT) -- (34.9,-\BT) -- (34.9,-\BM) -- (41.3,-\BM)
+    -- (41.3,-\BT) -- (\BL,-\BT) -- (\BL,\BT) -- (41.3,\BT) -- (41.3,\BM) -- (34.9,\BM) -- (34.9,\BT)
+    -- (25.425,\BT) -- (25.425,\BM) -- (19.025,\BM) -- (19.025,\BT) -- (9.55,\BT) -- (9.55,\BM)
+    -- (3.15,\BM) -- (3.15,\BT) -- (0,\BT) -- cycle;
+  % pocket walls across the block
+  \foreach \s in {3.15,9.55,19.025,25.425,34.9,41.3}{\draw[linhaA] (\s,-\BM) -- (\s,\BM);}
+  % bottom edges, hidden under the sloped sides
+  \draw[linhaF] (0,-\BB) -- (\BL,-\BB);
+  \draw[linhaF] (0,\BB) -- (\BL,\BB);
+  % axes
+  \draw[linhaG] (-1.5,0) -- ({\BL+1.5},0);
+  \foreach \c in {6.35,22.225,38.1}{\draw[linhaG] (\c,{-\BT-1.2}) -- (\c,{\BT+1.2});}
+\end{scope}
+\cotaHor{\TVx}{\TVx+2*3.15}{\TVc-17}{\TVc-10.4}{\TVc-10.4}{3.15}
+\cotaHor{\TVx+2*3.15}{\TVx+2*9.55}{\TVc-17}{\TVc-8.4}{\TVc-8.4}{6.4}
+\cotaHor{\TVx+2*9.55}{\TVx+2*19.025}{\TVc-17}{\TVc-10.4}{\TVc-10.4}{9.475}
+\cotaVer{\TVc-2*\BT}{\TVc+2*\BT}{\TVx+2*\BL+7}{\TVx+2*\BL}{\TVx+2*\BL}{10.4}
+\cotaVer{\TVc-2*\BM}{\TVc+2*\BM}{\TVx+2*\BL+15}{\TVx+2*41.3}{\TVx+2*41.3}{8.4}
+\node[txtvista] at (\TVx+44.45,188) {TOP VIEW \quad 2:1};
+
+% ============================================================
+%  SECTIONS 4:1 across the slot, block inside the profile cavity
+%  profile drawn as adjacent part (phantom); u across, d depth from the face
+%  sheet point = (Sx + 4 u, Sy - 4 d)
+% ============================================================
+\newcommand{\cavidade}{%
+  % face, lips (1.2 thick, opening 6.2) and the trapezoid cavity down to the 8 mm core
+  \draw[linhaK] (-8,0) -- (-3.1,0) -- (-3.1,-1.2) -- (-5.5,-1.2) -- (-4,-5.5) -- (4,-5.5) -- (5.5,-1.2)
+    -- (3.1,-1.2) -- (3.1,0) -- (8,0);
+  \draw[linhaG] (0,1) -- (0,-6.5);}
+
+% A-A: between two nuts, full block section
+\def\SAx{64} \def\SAy{170}
+\begin{scope}[shift={(\SAx,\SAy)}, x=4mm, y=4mm]
+  \cavidade
+  \filldraw[linhaA, fill=white] (-\BT,-1.4) -- (\BT,-1.4) -- (\BB,-5.3) -- (-\BB,-5.3) -- cycle;
+  \path[pattern=north east lines] (-\BT,-1.4) -- (\BT,-1.4) -- (\BB,-5.3) -- (-\BB,-5.3) -- cycle;
+\end{scope}
+\cotaHor{\SAx-4*\BT}{\SAx+4*\BT}{\SAy+5}{\SAy-5.6}{\SAy-5.6}{10.4}
+\cotaHor{\SAx-4*\BB}{\SAx+4*\BB}{\SAy-26.4}{\SAy-21.2}{\SAy-21.2}{7.4}
+\cotaVer{\SAy-21.2}{\SAy-5.6}{\SAx+26.4}{\SAx+4*\BB}{\SAx+4*\BT}{3.9}
+\cotaVer{\SAy-5.6}{\SAy}{\SAx-26.4}{\SAx-4*\BT}{\SAx-4*3.1}{1.4}
+\node[txtvista] at (\SAx,136) {SECTION A-A \quad 4:1};
+\node[txtnota] at (\SAx,132) {between two nuts};
+
+% B-B: through a nut, the floor carries the block under the nut
+\def\SBx{150} \def\SBy{170}
+\begin{scope}[shift={(\SBx,\SBy)}, x=4mm, y=4mm]
+  \cavidade
+  \filldraw[linhaA, fill=white] (-\BM,-4) -- (\BM,-4) -- (\BB,-5.3) -- (-\BB,-5.3) -- cycle;
+  \path[pattern=north east lines] (-\BM,-4) -- (\BM,-4) -- (\BB,-5.3) -- (-\BB,-5.3) -- cycle;
+  % drop-in nut, turned across the slot: body 10.5 under the lips, neck 6 in the opening
+  \filldraw[linhaA, fill=gray!30] (-3,-0.2) -- (3,-0.2) -- (3,-1.2) -- (5.25,-1.2) -- (4.25,-3.5)
+    -- (-4.25,-3.5) -- (-5.25,-1.2) -- (-3,-1.2) -- cycle;
+\end{scope}
+\cotaHor{\SBx-4*5.25}{\SBx+4*5.25}{\SBy+5}{\SBy-5.6}{\SBy-5.6}{10.5 nut}
+\cotaHor{\SBx-4*\BM}{\SBx+4*\BM}{\SBy-26.4}{\SBy-16}{\SBy-16}{8.4}
+\cotaVer{\SBy-21.2}{\SBy-16}{\SBx+26.4}{\SBx+4*\BB}{\SBx+4*\BM}{1.3}
+\cotaVer{\SBy-16}{\SBy-14}{\SBx-26.4}{\SBx-4*\BM}{\SBx-4*4.25}{0.5}
+\node[txtvista] at (\SBx,136) {SECTION B-B \quad 4:1};
+\node[txtnota] at (\SBx,132) {through a nut};
+
+% ============================================================
+%  STACK IN THE SLOT 1.5:1, top of an upright, section along the slot axis
+%  sheet point = (KX + 1.5 s, KY - 1.5 d), s from the upright end
+% ============================================================
+\def\KX{30} \def\KY{102}
+\begin{scope}[shift={(\KX,\KY)}, x=1.5mm, y=1.5mm]
+  % core of the profile under the slot, and the face plane
+  \fill[pattern=north east lines] (0,-5.5) rectangle (100,-7);
+  \draw[linhaK] (0,-5.5) -- (100,-5.5);
+  \draw[linhaB] (0,0) -- (100,0);
+  \draw[linhaA] (0,1.5) -- (0,-7);
+  % corner connector arm in the first 20 mm
+  \filldraw[linhaA, fill=conector] (0,-0.5) rectangle (20,-5.3);
+  % block U1 from 22.8, block U2 from 67.25 broken at 100
+  \begin{scope}
+    \clip (0,-8) rectangle (100,3);
+    \foreach \o in {22.8,67.25}{
+      \begin{scope}[shift={(\o,0)}]
+        \draw[linhaA] (0,-5.3) -- (0,-1.4) -- (3.15,-1.4) -- (3.15,-4) -- (9.55,-4) -- (9.55,-1.4)
+          -- (19.025,-1.4) -- (19.025,-4) -- (25.425,-4) -- (25.425,-1.4) -- (34.9,-1.4) -- (34.9,-4)
+          -- (41.3,-4) -- (41.3,-1.4) -- (44.45,-1.4) -- (44.45,-5.3) -- cycle;
+        \foreach \c in {6.35,22.225,38.1}{
+          \filldraw[linhaA, fill=gray!30] ({\c-3},-0.2) rectangle ({\c+3},-3.5);
+          \draw[linhaG] (\c,1.5) -- (\c,-7);}
+      \end{scope}}
+  \end{scope}
+\end{scope}
+\quebraV{\KX+150}{\KY-11}{\KY+2}
+\cotaHor{\KX}{\KX+1.5*20}{\KY+8}{\KY+2}{\KY+2}{20}
+\cotaHor{\KX}{\KX+1.5*22.8}{\KY+14}{\KY+2}{\KY+2}{22.8}
+\cotaHor{\KX}{\KX+1.5*29.15}{\KY+20}{\KY+2}{\KY+2}{29.15}
+\cotaHor{\KX+1.5*22.8}{\KX+1.5*67.25}{\KY-16}{\KY-8}{\KY-8}{44.45}
+\chamada{\KX+15}{\KY-4.5}{\KX+8}{\KY-24}{north}{CONNECTOR ARM}
+\chamada{\KX+1.5*29.15}{\KY-3}{\KX+1.5*29.15+18}{\KY+24}{south}{M5 DROP-IN NUT}
+\chamada{\KX+1.5*45}{\KY-5}{\KX+1.5*45}{\KY-24}{north}{BLOCK U1}
+\chamada{\KX+1.5*85}{\KY-5}{\KX+1.5*85}{\KY-24}{north}{BLOCK U2}
+\node[txtvista, anchor=west] at (128,126) {STACK IN THE FRONT SLOT \quad 1.5:1};
+
+% ============================================================
+%  NOTES
+% ============================================================
+\node[anchor=north west, txtnota, text width=174mm, align=left, inner sep=0pt] at (24,68) {%
+  \hyphenpenalty=10000\exhyphenpenalty=10000
+  {\fontsize{2.6mm}{3mm}\selectfont\bfseries NOTES}\\[1mm]
+  1. All dimensions in mm. Proposal for approval: not modeled yet.\\[0.6mm]
+  2. 12 identical blocks per front upright, 24 in all, slid in from the upright end before the corner connector goes on. Print floor down, pockets up, no supports.\\[0.6mm]
+  3. Holds the M5 drop-in nut 10.5 × 6 × 3.3 (neck 6 × 6 × 1), turned across the slot: its 6 mm side runs along the slot, in a 6.4 pocket.\\[0.6mm]
+  4. Profile cavity assumed 11 wide under the 1.2 lips and 5.5 deep from the face to the core, 0.2 to 0.3 clear on every side: to be confirmed with a test print.\\[0.6mm]
+  5. The connector arm takes the first 20 mm of the slot. The stack rests on the lower arm, so the U grid sits 2.8 lower than on sheet 02; the pitch is unchanged.};
+
+\legenda{1U NUT BLOCK}{Printed spacer for the M5 drop-in nuts in the front slot, proposal}{MR2020-06}{2:1, 4:1}{1}{1}
+
+\end{folha}
+\end{document}

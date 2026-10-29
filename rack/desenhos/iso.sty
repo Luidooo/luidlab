@@ -164,7 +164,9 @@
     \node[anchor=base west, font=\fontsize{3.2mm}{3.6mm}\selectfont\bfseries] at (161.5,19.5) {mm};
 
     \node[txtrot, anchor=base west] at (1.5,14.9) {MATERIAL};
-    \node[anchor=base west, font=\fontsize{2.4mm}{2.8mm}\selectfont] at (1.5,10.4) {Aluminum profile 6063-T5, 20 series (20 × 20), 6 mm slot};
+    % a sheet may \def\material and \def\data before \legenda (e.g. a printed part)
+    \providecommand{\material}{Aluminum profile 6063-T5, 20 series (20 × 20), 6 mm slot}
+    \node[anchor=base west, font=\fontsize{2.4mm}{2.8mm}\selectfont] at (1.5,10.4) {\material};
     \node[txtrot, anchor=base west] at (126.5,14.9) {STANDARDS};
     \node[anchor=base west, font=\fontsize{2.1mm}{2.5mm}\selectfont] at (126.5,10.4) {ISO 5457 · 7200 · 128 · 129-1};
 
@@ -175,7 +177,8 @@
     \node[txtrot, anchor=base west] at (86.5,5.6) {SHEET};
     \node[anchor=base west, font=\fontsize{3mm}{3.4mm}\selectfont\bfseries] at (86.5,1.5) {#5 / #6};
     \node[txtrot, anchor=base west] at (116.5,5.6) {DATE};
-    \node[anchor=base west, font=\fontsize{2.6mm}{3mm}\selectfont] at (116.5,1.5) {2026-09-13};
+    \providecommand{\data}{2026-09-13}
+    \node[anchor=base west, font=\fontsize{2.6mm}{3mm}\selectfont] at (116.5,1.5) {\data};
     \node[txtrot, anchor=base west] at (156.5,5.6) {REV.};
     \node[anchor=base west, font=\fontsize{3mm}{3.4mm}\selectfont\bfseries] at (156.5,1.5) {A};
   \end{scope}

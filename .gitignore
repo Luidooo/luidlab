@@ -12,3 +12,8 @@ rack/desenhos/*.png
 
 # local planning notes, kept out of the repository
 rack/minirack.html
+
+# SolidCraft: backups, locks and third-party downloads (personal-use licenses)
+rack/modelos3d/*.zip
+rack/modelos3d/*.bak
+rack/modelos3d/.~*.lock
