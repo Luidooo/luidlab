@@ -25,7 +25,6 @@
 %   real   0.00 ..  25.00  ->  paper  31.0 ..  43.5
 %   real 210.05 .. 457.85  ->  paper  47.5 .. 171.4
 %   real 554.00 .. 579.00  ->  paper 175.4 .. 187.9
-% Lower faces of the rails: 235.05 -> 60.0 ; 412.85 -> 148.9
 \titulo{280}{ITEM 1 \quad UPRIGHT \quad QTY 4}{1:2}{198}
 
 \barra{31}{43.5}{250}   \barra{47.5}{171.4}{250}   \barra{175.4}{187.9}{250}
@@ -33,23 +32,15 @@
 \quebraV{43.5}{250}{260}  \quebraV{47.5}{250}{260}
 \quebraV{171.4}{250}{260} \quebraV{175.4}{250}{260}
 
-% adjacent rails (depth rails, plus back width rails on the back uprights), phantom outline
-\draw[linhaK] (60,260) -- (60,268) -- (70,268) -- (70,260);
-\draw[linhaK] (148.9,260) -- (148.9,268) -- (158.9,268) -- (158.9,260);
-\node[txtrot] at (65,270.6) {RAILS};
-\node[txtrot] at (153.9,270.6) {RAILS};
 \node[txtrot, anchor=west] at (31,262.6) {BOTTOM END};
 \node[txtrot, anchor=east] at (187.9,262.6) {TOP END};
 
-% dimensions from the bottom end to the lower face of each rail
-\cotaHor{31}{60}{242}{250}{250}{235.05}
-\cotaHor{31}{148.9}{236}{250}{250}{412.85}
-\cotaHor{31}{187.9}{230}{250}{250}{579}
+\cotaHor{31}{187.9}{240}{250}{250}{579}
 
 % ============================================================
 %  ITEM 3  DEPTH RAIL, 1:2
 % ============================================================
-\titulo{224}{ITEM 3 \quad DEPTH RAIL \quad QTY 8}{1:2}{198}
+\titulo{224}{ITEM 3 \quad DEPTH RAIL \quad QTY 4}{1:2}{198}
 \barra{31}{186}{206}
 \ponta{31}{206} \ponta{186}{206}
 \cotaHor{31}{186}{198}{206}{206}{310}
@@ -57,7 +48,7 @@
 % ============================================================
 %  ITEM 2  WIDTH RAIL, 1:2
 % ============================================================
-\titulo{178}{ITEM 2 \quad WIDTH RAIL \quad QTY 6}{1:2}{118}
+\titulo{178}{ITEM 2 \quad WIDTH RAIL \quad QTY 4}{1:2}{118}
 \barra{31}{114}{160}
 \ponta{31}{160} \ponta{114}{160}
 \cotaHor{31}{114}{152}{160}{160}{166}
@@ -108,10 +99,10 @@
     \node[font=\cel] at (132.5,#1) {#5};
     \node[font=\cel] at (157.5,#1) {#6};}
   \lin{21}{1}{Upright}{4}{579}{2316}
-  \lin{15}{2}{Width rail}{6}{166}{996}
-  \lin{9}{3}{Depth rail}{8}{310}{2480}
+  \lin{15}{2}{Width rail}{4}{166}{664}
+  \lin{9}{3}{Depth rail}{4}{310}{1240}
   \node[font=\cab, anchor=east] at (143,3) {TOTAL PROFILE};
-  \node[font=\cel\bfseries] at (157.5,3) {5792};
+  \node[font=\cel\bfseries] at (157.5,3) {4220};
 \end{scope}
 
 % ============================================================
@@ -123,14 +114,10 @@
   1. All dimensions are in mm. General length tolerance $\pm$0.5.\\[1mm]
   2. Cut square: the corner connectors depend on it. Deburr both ends of every piece.\\[1mm]
   3. Lengths do not include saw kerf. Measure before each cut.\\[1mm]
-  4. Upright positions are measured from the bottom end of the upright to the lower face of each
-     rail. Sheet~02 gives the rail axes from the frame base: subtract 3.5~mm for the lower connector
-     and 10~mm for half a rail.\\[1mm]
-  5. The corner connectors add 3.5~mm at each end of the upright and are not part of the cut length.\\[1mm]
-  6. On the back uprights the same marks also locate the back intermediate width rails.\\[1mm]
-  7. The upright is drawn as an interrupted view; the dimensions give the true lengths.\\[1mm]
-  8. Profile section is schematic. Slot and bore geometry follow the supplier catalog.\\[1mm]
-  9. Purchased hardware (corner connectors, L brackets, hammer nuts and screws) is listed on sheet~02.};
+  4. The corner connectors add 3.5~mm at each end of the upright and are not part of the cut length.\\[1mm]
+  5. The upright is drawn as an interrupted view; the dimensions give the true lengths.\\[1mm]
+  6. Profile section is schematic. Slot and bore geometry follow the supplier catalog.\\[1mm]
+  7. Purchased hardware (corner connectors, L brackets, hammer nuts and screws) is listed on sheet~02.};
 
 \legenda{PARTS AND CUT LIST}{Cut pieces for the 8 in. × 12U frame}{MR2020-03}{1:2 / 2:1}{3}{5}
 

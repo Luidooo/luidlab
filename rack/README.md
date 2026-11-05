@@ -21,24 +21,24 @@
 | Item | Qty | Length (mm) |
 |---|---|---|
 | Upright | 4 | 579 |
-| Width rail | 6 | 166 |
-| Depth rail | 8 | 310 |
-| **Total profile** | | **5792** |
+| Width rail | 4 | 166 |
+| Depth rail | 4 | 310 |
+| **Total profile** | | **4220** |
 
 ## Hardware
 
 | Item | Qty | In stock | To buy |
 |---|---|---|---|
 | 3-way corner connector | 8 | 4 | 4 |
-| L corner bracket, 2 holes, 45° rib | 48 | 16 | 32 |
-| M5 hammer nut, 20 series | 96 | 8 | 88 |
-| M5 × 8 button head hex screw, silver | 96 | 0 | 96 |
+| L corner bracket, 2 holes, 45° rib | 24 | 16 | 8 |
+| M5 hammer nut, 20 series | 48 | 8 | 40 |
+| M5 × 8 button head hex screw, silver | 48 | 0 | 48 |
 | M4 × 3 headless hex screw | 64 | 32 | 32 |
 
-L brackets go on every upright to rail joint of the sides, the back and the front vertices,
-plus one lying flat at each inner corner of the base and top frames: 3 at each of the 8
-vertices, 2 at each intermediate joint on the front uprights and 4 at each intermediate joint
-on the back uprights. Each bracket takes two hammer nuts and two screws.
+Rails only close the base and top frames; there are no intermediate rails.
+L brackets go 3 at each of the 8 vertices: one in the side plane, one in the front or back
+plane and one lying flat in the base or top frame. Each bracket takes two hammer nuts and two
+screws.
 The front plane brackets sit behind the panels at Z 20 to 40 and 546 to 566, inside U12 and U1:
 the trays of those two units need a notch at the corners.
 Each 3-way corner connector takes eight M4 headless screws, two in each leg.
